@@ -2,6 +2,7 @@
  * Copyright (c) 2022 Digital Bazaar, Inc. All rights reserved.
  */
 import chai from 'chai';
+import {OIDC4VCIClient} from '../../lib/index.js';
 
 chai.should();
 const {expect} = chai;
