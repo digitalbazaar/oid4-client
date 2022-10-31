@@ -23,7 +23,8 @@
     "lib/**/*.js"
   ],
   "dependencies": {
-    "@digitalbazaar/http-client": "^3.2.0"
+    "@digitalbazaar/http-client": "^3.2.0",
+    "base64url-universal": "^2.0.0"
   },
   "devDependencies": {
     "c8": "^7.11.3",
@@ -61,7 +62,7 @@
   ],
   "scripts": {
     "test": "npm run test-node",
-    "test-node": "cross-env NODE_ENV=test mocha --preserve-symlinks -t 10000 -r tests/**/*.spec.js",
+    "test-node": "cross-env NODE_ENV=test mocha --preserve-symlinks -t 10000 -r tests/node.js tests/**/*.spec.js",
     "test-karma": "karma start tests/karma.conf.cjs",
     "coverage": "cross-env NODE_ENV=test c8 npm run test-node",
     "coverage-ci": "cross-env NODE_ENV=test c8 --reporter=lcovonly --reporter=text-summary --reporter=text npm run test-node",
