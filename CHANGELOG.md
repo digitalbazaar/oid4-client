@@ -1,6 +1,6 @@
 # @digitalbazaar/oidc4vci-client Changelog
 
-## 1.0.1 - 2022-11-dd
+## 1.0.1 - 2022-11-03
 
 ### Fixed
 - Ensure delivery retry only occurs when initial delivery fails.
