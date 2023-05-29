@@ -1,11 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 1.0.1 - 2022-11-03
-
-### Fixed
-- Ensure delivery retry only occurs when initial delivery fails.
-
-## 1.0.0 - 2022-11-03
+## 1.0.0 - 2023-05-dd
 
 ### Added
 - Initial release, see individual commits for history.
