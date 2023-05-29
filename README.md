@@ -1,2 +1,2 @@
-# oidc4vci-client
-An OIDC4VCI client
+# oid4-client
+An OID4 client

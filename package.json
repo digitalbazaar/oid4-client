@@ -1,8 +1,8 @@
 {
-  "name": "@digitalbazaar/oidc4vci-client",
+  "name": "@digitalbazaar/oid4-client",
   "version": "1.0.2-0",
-  "description": "An OIDC4VCI client",
-  "homepage": "https://github.com/digitalbazaar/oidc4vci-client",
+  "description": "An OID4 (VC + VP) client",
+  "homepage": "https://github.com/digitalbazaar/oid4-client",
   "author": {
     "name": "Digital Bazaar, Inc.",
     "email": "support@digitalbazaar.com",
@@ -10,10 +10,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/digitalbazaar/oidc4vci-client"
+    "url": "https://github.com/digitalbazaar/oid4-client"
   },
   "bugs": {
-    "url": "https://github.com/digitalbazaar/oidc4vci-client/issues",
+    "url": "https://github.com/digitalbazaar/oid4-client/issues",
     "email": "support@digitalbazaar.com"
   },
   "license": "BSD-3-Clause",
@@ -58,6 +58,10 @@
     "node": ">=16"
   },
   "keywords": [
+    "OID4",
+    "OID4VCI",
+    "OID4VC",
+    "OID4VP",
     "OIDC4VCI"
   ],
   "scripts": {
