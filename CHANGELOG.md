@@ -1,4 +1,4 @@
-# @digitalbazaar/oidc4vci-client Changelog
+# @digitalbazaar/oid4-client Changelog
 
 ## 1.0.1 - 2022-11-03
 
