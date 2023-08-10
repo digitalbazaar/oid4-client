@@ -1,5 +1,12 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 3.0.0 - 2023-08-dd
+
+### Changed
+- **BREAKING**: The client now uses `.well-known/openid-credential-issuer`
+  instead of `.well-known/oauth-authorization-server` to match the
+  current version of the OID4VCI spec as of this date.
+
 ## 2.0.0 - 2023-06-01
 
 ### Added
