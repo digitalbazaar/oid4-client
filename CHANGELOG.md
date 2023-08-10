@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 3.0.0 - 2023-08-dd
+## 3.0.0 - 2023-08-09
 
 ### Changed
 - **BREAKING**: The client now uses `.well-known/openid-credential-issuer`
