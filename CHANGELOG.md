@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 3.0.1 - 2023-08-dd
+## 3.0.1 - 2023-08-09
 
 ### Fixed
 - Ensure authorization server metadata is retrieved along with credential
