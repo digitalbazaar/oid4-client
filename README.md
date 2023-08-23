@@ -2,7 +2,7 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@digitalbazaar/oid4-client.svg)](https://npm.im/@digitalbazaar/oid4-client)
 
-A Javascript library for working with the OpenID 4 Verifiable Credential
+A JavaScript library for working with the OpenID 4 Verifiable Credential
 Issuance (OID4VCI) protocol, offering functionality for requesting Verifiable
 Credentials.
 
@@ -18,7 +18,7 @@ Credentials.
 
 ## Background
 
-This library is a Javascript (Node.js and browser) implementation of the
+This library is a JavaScript (Node.js and browser) implementation of the
 [OID4VCI v11](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html)
 Protocol.
 
