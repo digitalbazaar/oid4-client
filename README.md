@@ -42,9 +42,18 @@ npm install @digitalbazaar/oid4-client
 import { OID4Client } from "@digitalbazaar/oid4-client";
 ```
 
+
+### Creating a Client from a Credential Offer
+
+```javascript
+const clientFromOffer = await OID4Client.fromCredentialOffer({
+  offer: "YOUR_CREDENTIAL_OFFER",
+});
+```
+
 ### Constructor
 
-The `OID4Client` can be instantiated using the following parameters:
+You can also instantiate the `OID4Client` directly using the following parameters:
 
 - `accessToken` (Optional)
 - `issuerConfig`
@@ -62,17 +71,29 @@ const client = new OID4Client({
 });
 ```
 
-### Creating a Client from a Credential Offer
+### Requesting a Credential
+
+To request a single credential using the credential offer:
 
 ```javascript
-const clientFromOffer = await OID4Client.fromCredentialOffer({
-  offer: "YOUR_CREDENTIAL_OFFER",
+const credential = await client.requestCredential({
+  did: "YOUR_DID",
+  didProofSigner: "YOUR_DID_PROOF_SIGNER",
 });
 ```
 
-### Requesting a Credential
+To request multiple credentials using the credential offer:
 
-To request a single credential:
+```javascript
+const credentials = await client.requestCredentials({
+  did: "YOUR_DID",
+  didProofSigner: "YOUR_DID_PROOF_SIGNER",
+});
+```
+
+### Requesting a Credential By Definition
+
+To request a single credential using a specific credential definition:
 
 ```javascript
 const credential = await client.requestCredential({
@@ -82,7 +103,7 @@ const credential = await client.requestCredential({
 });
 ```
 
-To request multiple credentials:
+To request multiple credentials using credential definition requests:
 
 ```javascript
 const credentials = await client.requestCredentials({
