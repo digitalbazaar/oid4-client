@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 3.1.0 - 2023-10-dd
+## 3.1.0 - 2023-10-25
 
 ### Added
 - Add basic OID4VP support. There are many differences in OID4VP
