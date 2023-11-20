@@ -1,5 +1,10 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 3.2.0 - 2023-11-XX
+
+### Changed
+- Add 'vc' prefix to presentation definition query mapping.
+
 ## 3.1.0 - 2023-10-25
 
 ### Added
