@@ -11,18 +11,21 @@ describe('OID4VP', () => {
   describe('constructor', () => {
     it('should map a QueryByExample to a Presentation Definition', async () => {
       const presentation_definition = _fromQueryByExampleQuery({
-        reason: 'Please present your Driver\'s License to complete the ' +
-                'verification process.',
-        example: {
-          '@context': [
-            'https://www.w3.org/2018/credentials/v1',
-            'https://w3id.org/vdl/v1',
-            'https://w3id.org/vdl/aamva/v1'
-          ],
-          type: [
-            'Iso18013DriversLicenseCredential'
-          ]
-        }
+        credentialQuery: {
+          reason: 'Please present your Driver\'s License to complete the ' +
+                  'verification process.',
+          example: {
+            '@context': [
+              'https://www.w3.org/2018/credentials/v1',
+              'https://w3id.org/vdl/v1',
+              'https://w3id.org/vdl/aamva/v1'
+            ],
+            type: [
+              'Iso18013DriversLicenseCredential'
+            ]
+          }
+        },
+        prefixVC: true
       });
       expect(presentation_definition.constraints.fields[0].path).to.eql([
         '$[\'@context\']',
