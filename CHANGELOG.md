@@ -1,9 +1,10 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 3.2.0 - 2023-11-XX
+## 3.2.0 - 2023-11-dd
 
 ### Changed
-- Add 'vc' prefix to presentation definition query mapping.
+- Add `prefixJwtVcPath` option to add an additional JSON path that includes
+  the JWT W3C VC 1.1 'vc' prefix to presentation definition constraints fields.
 
 ## 3.1.0 - 2023-10-25
 
