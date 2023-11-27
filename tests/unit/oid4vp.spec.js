@@ -25,7 +25,7 @@ describe('OID4VP', () => {
             ]
           }
         },
-        prefixVC: true
+        prefixJwtVcPath: true
       });
       expect(presentation_definition.constraints.fields[0].path).to.eql([
         '$[\'@context\']',
