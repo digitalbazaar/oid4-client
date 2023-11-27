@@ -13,7 +13,7 @@ describe('OID4VP', () => {
       const presentation_definition = _fromQueryByExampleQuery({
         credentialQuery: {
           reason: 'Please present your Driver\'s License to complete the ' +
-                  'verification process.',
+            'verification process.',
           example: {
             '@context': [
               'https://www.w3.org/2018/credentials/v1',
