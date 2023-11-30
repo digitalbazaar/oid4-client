@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 3.2.0 - 2023-11-dd
+## 3.2.0 - 2023-11-30
 
 ### Changed
 - Add `prefixJwtVcPath` option to add an additional JSON path that includes
