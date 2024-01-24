@@ -1,8 +1,8 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 3.3.0 - 2023-01-xx
+## 3.3.0 - 2024-01-24
 
-### Change
+### Changed
 - Update `@digitalbazaar/http-client` to 4.0.0.
 
 ## 3.2.0 - 2023-11-30
