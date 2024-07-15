@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 3.4.0 - 2024-mm-dd
+## 3.4.0 - 2024-07-15
 
 ### Added
 - Allow `format` to be passed when requesting credentials.
