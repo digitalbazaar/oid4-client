@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 3.4.1 - 2024-07-dd
+## 3.4.1 - 2024-07-29
 
 ### Fixed
 - Ensure `presentation_required` error is properly nested.
