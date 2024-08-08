@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 3.5.0 - 2024-08-dd
+## 3.5.0 - 2024-08-08
 
 ### Added
 - Allow `vpToken` param to be given when sending an authorization response.
