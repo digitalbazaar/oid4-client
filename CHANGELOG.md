@@ -1,5 +1,15 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 3.5.0 - 2024-08-dd
+
+### Added
+- Allow `vpToken` param to be given when sending an authorization response.
+  This param is optional and does not replace the `verifiablePresentation`
+  parameter which is required to build the presentation submission. The
+  `vpToken` param can be used if the format of the `vp_token` is not
+  the plain JSON expression of the `verifiablePresentation`, but is instead
+  some enveloping format that wraps the VP, such as a JWT (as in VC-JWT).
+
 ## 3.4.1 - 2024-07-29
 
 ### Fixed
