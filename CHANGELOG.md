@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 3.6.0 - 2024-08-dd
+## 3.6.0 - 2024-08-22
 
 ### Added
 - Add support for issuer configuration URLs that do not match RFC 8414,
