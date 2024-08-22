@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 3.7.0 - 2024-08-dd
+## 3.7.0 - 2024-08-22
 
 ### Added
 - Add support for fetching credential offer from `credential_offer_uri` via
