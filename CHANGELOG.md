@@ -6,6 +6,9 @@
 - Add support for issuer configuration URLs that do not match RFC 8414,
   but instead match the OID4VCI spec, i.e., `<issuer>/.well-known/...` will
   be accepted and not just `<issuer origin>/.well-known/.../<issuer path>`.
+- Add support for parsing and using credential offers with `credentials`
+  or `credential_configuration_ids` that include credential configuration
+  IDs that are present in the issuer configuration.
 
 ## 3.5.0 - 2024-08-08
 
