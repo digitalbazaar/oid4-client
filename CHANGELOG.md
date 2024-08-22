@@ -1,5 +1,12 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 3.6.0 - 2024-08-dd
+
+### Added
+- Add support for issuer configuration URLs that do not match RFC 8414,
+  but instead match the OID4VCI spec, i.e., `<issuer>/.well-known/...` will
+  be accepted and not just `<issuer origin>/.well-known/.../<issuer path>`.
+
 ## 3.5.0 - 2024-08-08
 
 ### Added
