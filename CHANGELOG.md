@@ -1,5 +1,13 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 3.7.0 - 2024-08-dd
+
+### Added
+- Add support for fetching credential offer from `credential_offer_uri` via
+  `getCredentialOffer()`.
+- Improve automatic credential definition selection from a credential offer
+  based on the specified `format`.
+
 ## 3.6.0 - 2024-08-22
 
 ### Added
