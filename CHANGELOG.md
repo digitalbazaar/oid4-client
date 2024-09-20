@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 4.0.0 - 2024-09-dd
+## 4.0.0 - 2024-09-20
 
 ### Changed
 - **BREAKING**: Use `allOf` instead of an invalid `contains` with an
