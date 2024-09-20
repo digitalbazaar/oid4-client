@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 3.8.0 - 2024-09-dd
+## 3.8.0 - 2024-09-20
 
 ### Added
 - Accept `allOf` in combination with `contains` for array schemas.
