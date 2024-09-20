@@ -1,5 +1,11 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 4.0.0 - 2024-09-dd
+
+### Changed
+- **BREAKING**: Use `allOf` instead of an invalid `contains` with an
+  array value when generating presentation filters from a VPR.
+
 ## 3.8.0 - 2024-09-20
 
 ### Added
