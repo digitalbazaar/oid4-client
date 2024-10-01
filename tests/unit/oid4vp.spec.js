@@ -135,5 +135,34 @@ describe('OID4VP', () => {
         '$[\'vc\'][\'type\']'
       ]);
     });
+
+    it('auto-detect to include "vc" w/both "accepted" methods', async () => {
+      const presentation_definition = _fromQueryByExampleQuery({
+        credentialQuery: {
+          reason: 'Please present your Driver\'s License to complete the ' +
+            'verification process.',
+          example: {
+            '@context': [
+              'https://www.w3.org/2018/credentials/v1',
+              'https://w3id.org/vdl/v1',
+              'https://w3id.org/vdl/aamva/v1'
+            ],
+            type: [
+              'Iso18013DriversLicenseCredential'
+            ]
+          },
+          acceptedCryptosuites: ['bbs-2023'],
+          acceptedEnvelopes: ['application/jwt']
+        }
+      });
+      expect(presentation_definition.constraints.fields[0].path).to.eql([
+        '$[\'@context\']',
+        '$[\'vc\'][\'@context\']'
+      ]);
+      expect(presentation_definition.constraints.fields[1].path).to.eql([
+        '$[\'type\']',
+        '$[\'vc\'][\'type\']'
+      ]);
+    });
   });
 });
