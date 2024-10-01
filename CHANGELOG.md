@@ -6,6 +6,10 @@
 - Auto-detect whether to include `vc` in the JSON paths when
   computing presentation definition constraints from a VPR.
 
+### Fixed
+- Ensure duplicate paths aren't used when generating a VPR from a presentation
+  definition.
+
 ## 4.0.0 - 2024-09-20
 
 ### Changed
