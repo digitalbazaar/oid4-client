@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 4.1.0 - 2024-10-dd
+## 4.1.0 - 2024-10-01
 
 ### Added
 - Auto-detect whether to include `vc` in the JSON paths when
