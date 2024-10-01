@@ -1,5 +1,11 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 4.1.0 - 2024-10-dd
+
+### Added
+- Auto-detect whether to include `vc` in the JSON paths when
+  computing presentation definition constraints from a VPR.
+
 ## 4.0.0 - 2024-09-20
 
 ### Changed
