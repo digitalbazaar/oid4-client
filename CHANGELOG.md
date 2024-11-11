@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 4.3.0 - 2024-11-dd
+## 4.3.0 - 2024-11-10
 
 ### Added
 - Add `getNonce` to client API for use with OID4VCI `nonce_endpoint`.
