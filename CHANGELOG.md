@@ -1,5 +1,11 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 4.3.0 - 2024-11-dd
+
+### Added
+- Add `getNonce` to client API for use with OID4VCI `nonce_endpoint`.
+- Add option to pass `nonce` to `requestCredential(s)`.
+
 ## 4.2.0 - 2024-10-15
 
 ### Changed
