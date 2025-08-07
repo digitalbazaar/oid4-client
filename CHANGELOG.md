@@ -1,5 +1,10 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 4.4.0 - 2025-mm-dd
+
+### Changed
+- Update dependencies.
+
 ## 4.3.0 - 2024-11-10
 
 ### Added
