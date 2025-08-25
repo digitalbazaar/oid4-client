@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 4.4.0 - 2025-mm-dd
+## 4.4.0 - 2025-08-25
 
 ### Added
 - Add OID4VP encrypted authz response implementation.
