@@ -2,6 +2,22 @@
 
 ## 4.4.0 - 2025-mm-dd
 
+### Added
+- Add OID4VP encrypted authz response implementation.
+- Add OID4VP signed authz request verification. When getting an
+  authorization request, a (optionally async)
+  `getVerificationKey({protectedHeader})` function must be provided
+  as an option in order to provide key material for verification. If
+  not provided when a signed authz request is required based on the
+  client ID scheme/prefix or client metadata, then a `NotFoundError`
+  will be thrown during JWT verification.
+- Add support for OID4VP `direct_post.jwt` response mode.
+- Add `selectJwk()` utility.
+- Expose authz request, authz response, and convert utilities via
+  `oid4vp.authzRequest.*`, `oid4vp.authzResponse.*`, and
+  `oid4vp.convert.*` respectively. Future releases may make these more
+  easily importable as individual symbols w/tree-shaking support.
+
 ### Changed
 - Update dependencies.
 
