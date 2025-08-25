@@ -1,5 +1,13 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.0.0 - 2025-mm-dd
+
+### Removed
+- **BREAKING**: Remove support for `client_metadata_uri` and
+  `presentation_definition_uri` in authorization responses. These have been
+  removed from the latest OID4VP specification, are considered unnecessarily
+  complex, and are predicted to be very rarely used.
+
 ## 4.4.0 - 2025-08-25
 
 ### Added
