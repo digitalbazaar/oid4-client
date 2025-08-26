@@ -2,6 +2,26 @@
 
 ## 5.0.0 - 2025-mm-dd
 
+### Added
+- When `getVerificationKey` is not passed when getting a signed authorization
+  request, if the `x5c` claim is present, automatically use the public key
+  from its leaf certificate to verify the JWT. This is the expected behavior
+  for `x509_san_dns` and `x509_hash` anyway. If other schemes are supported
+  by the caller, they must provide `getVerificationKey` and can return the
+  passed `certificatePublicKey` for those schemes and another key for other
+  schemes (such as DID-based schemes, which will require a DID resolver to
+  be used). The unprotected `scheme` and unprotected `authorizationRequest`
+  are passed to enable checking of the scheme or other parameters that might
+  be needed to make a key decision consistent with what is to be verified.
+- The parameter `getTrustedCertificates({x5c, chain, authorizationRequest})`
+  must be provided when getting an authorization request if any of the
+  `x509_*` client ID schemes are supported by the caller. This function must
+  return an array of PEM or base64-encoded certificates, each of which will
+  be considered trusted, i.e., if any of these certificates is found when
+  verifying a certificate chain, the verification process will halt assuming
+  trust has been established, even if the trusted certificate found is not a
+  root certificate.
+
 ### Removed
 - **BREAKING**: Remove support for `client_metadata_uri` and
   `presentation_definition_uri` in authorization responses. These have been
