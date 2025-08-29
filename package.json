@@ -27,7 +27,8 @@
     "base64url-universal": "^2.0.0",
     "jose": "^6.0.13",
     "jsonpath-plus": "^10.3.0",
-    "jsonpointer": "^5.0.1"
+    "jsonpointer": "^5.0.1",
+    "pkijs": "^3.2.5"
   },
   "devDependencies": {
     "c8": "^10.1.3",
