@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.0.0 - 2025-mm-dd
+## 5.0.0 - 2025-08-30
 
 ### Added
 - When `getVerificationKey` is not passed when getting a signed authorization
