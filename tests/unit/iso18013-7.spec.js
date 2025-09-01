@@ -101,6 +101,7 @@ describe('ISO 18013-7', () => {
       response_type: 'vp_token',
       response_uri: 'https://mdl.reader.example/' +
         'workflows/1/exchanges/2/openid/clients/default/authorization/response',
+      // note: not strictly 128-bits of random; should instead use 128-bits
       nonce: crypto.randomUUID()
     };
 
@@ -142,11 +143,11 @@ describe('ISO 18013-7', () => {
 
     // create an MDL session transcript
     const sessionTranscript = {
+      // note: not strictly 128-bits of random; should instead use 128-bits
       mdocGeneratedNonce: crypto.randomUUID(),
-      clientId: crypto.randomUUID(),
-      // note: expected to be an OID4VP exchange response URL
-      responseUri: 'https://test.domain/example/authz/response',
-      verifierGeneratedNonce: crypto.randomUUID()
+      clientId: authorizationRequest.client_id,
+      responseUri: authorizationRequest.response_uri,
+      verifierGeneratedNonce: authorizationRequest.nonce
     };
 
     // create MDL "device response" presentation
