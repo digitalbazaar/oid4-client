@@ -3,23 +3,25 @@
  */
 //import * as base64url from 'base64url-universal';
 import * as mdlUtils from '../mdlUtils.js';
+import {exportJWK, generateKeyPair} from 'jose';
+import {oid4vp, signJWT} from '../../lib/index.js';
 import chai from 'chai';
 import {generateCertificateChain} from '../certUtils.js';
 
 chai.should();
 const {expect} = chai;
 
-describe.only('ISO 18013-7', () => {
+describe('ISO 18013-7', () => {
   it('should pass', async () => {
     // get device key pair
     const deviceKeyPair = await mdlUtils.generateDeviceKeyPair();
 
     // create a certificate chain that ends in the MDL issuer (leaf)
-    const certChain = await generateCertificateChain();
+    const issuerCertChainEntities = await generateCertificateChain();
 
     // issue an example MDL
-    const issuerPrivateJwk = certChain.leaf.subject.jwk;
-    const issuerCertificate = certChain.leaf.pemCertificate;
+    const issuerPrivateJwk = issuerCertChainEntities.leaf.subject.jwk;
+    const issuerCertificate = issuerCertChainEntities.leaf.pemCertificate;
     const mdoc = await mdlUtils.issue({
       issuerPrivateJwk, issuerCertificate,
       devicePublicJwk: deviceKeyPair.publicJwk
@@ -27,18 +29,18 @@ describe.only('ISO 18013-7', () => {
 
     // generate example verifier identity and cert chain...
 
-    /*
     // auto-generate `x5c` that includes public key for signing key
-    const certificateChainEntities = await generateCertificateChain({
-      leafConfig: {dnsName: 'test.domain.example'}
+    const leafDnsName = 'mdl.reader.example';
+    const verifierCertificateChainEntities = await generateCertificateChain({
+      leafConfig: {dnsName: leafDnsName}
     });
-    const x5c = [certificateChainEntities.leaf.b64Certificate];
-    // trusted certs for verifying authz request, NOT for verifying mDL
-    const trustedCertificates = [
-      certificateChainEntities.intermediate.pemCertificate,
-      certificateChainEntities.root.pemCertificate
+    const x5c = [verifierCertificateChainEntities.leaf.b64Certificate];
+    // trusted certs for verifying authz request from verifier, NOT for
+    // verifying mDL from issuer
+    const verifierCertificateChain = [
+      verifierCertificateChainEntities.intermediate.pemCertificate,
+      verifierCertificateChainEntities.root.pemCertificate
     ];
-    */
 
     // create example presentation defintion from verifier
     const presentationDefinition = {
@@ -64,6 +66,79 @@ describe.only('ISO 18013-7', () => {
         }
       ]
     };
+
+    // create verifier key agreement pair
+    const keyAgreementKeyPair = await generateKeyPair('ECDH-ES', {
+      crv: 'P-256', extractable: true
+    });
+    const [kakPrivateKeyJwk, kakPublicKeyJwk] = await Promise.all([
+      exportJWK(keyAgreementKeyPair.privateKey),
+      exportJWK(keyAgreementKeyPair.publicKey)
+    ]);
+    kakPublicKeyJwk.use = 'enc';
+    kakPublicKeyJwk.alg = 'ECDH-ES';
+    kakPrivateKeyJwk.kid = kakPublicKeyJwk.kid =
+      `urn:uuid:${crypto.randomUUID()}`;
+
+    // create authorization request
+    const authorizationRequest = {
+      aud: 'https://self-issued.me/v2',
+      client_id: 'mdl.reader.example',
+      client_id_scheme: 'x509_san_dns',
+      client_metadata: {
+        require_signed_request_object: true,
+        vp_formats: {
+          mso_mdoc: {
+            alg: ['ES256', 'ES384']
+          }
+        },
+        jwks: {
+          keys: [kakPublicKeyJwk]
+        }
+      },
+      presentation_definition: presentationDefinition,
+      response_mode: 'direct_post.jwt',
+      response_type: 'vp_token',
+      response_uri: 'https://mdl.reader.example/' +
+        'workflows/1/exchanges/2/openid/clients/default/authorization/response',
+      nonce: crypto.randomUUID()
+    };
+
+    // create signed authorization request
+    const payload = {
+      ...authorizationRequest
+    };
+    const protectedHeader = {
+      typ: 'JWT',
+      alg: 'ES256',
+      kid: kakPublicKeyJwk.kid,
+      x5c
+    };
+    const signer = {
+      async sign({data}) {
+        // verifier signs authz request
+        const {keyPair} = verifierCertificateChainEntities.leaf.subject;
+        const algorithm = {name: 'ECDSA', hash: {name: 'SHA-256'}};
+        const signature = new Uint8Array(await crypto.subtle.sign(
+          algorithm, keyPair.privateKey, data));
+        return signature;
+      }
+    };
+    const authzRequestJwt = await signJWT({payload, protectedHeader, signer});
+
+    // get authz request JWT using oid4-client; this will also verify the JWT
+    const searchParams = new URLSearchParams({
+      client_id: leafDnsName,
+      request: authzRequestJwt
+    });
+    const mdocUrl = `mdoc-openid4vp://?${searchParams}`;
+    const getAuthzRequestResult = await oid4vp.getAuthorizationRequest({
+      url: mdocUrl, getTrustedCertificates: () => verifierCertificateChain
+    });
+
+    // ensure parsed authz request matches generated one
+    expect(getAuthzRequestResult.authorizationRequest).to.deep.equal(
+      authorizationRequest);
 
     // create an MDL session transcript
     const sessionTranscript = {
@@ -97,7 +172,9 @@ describe.only('ISO 18013-7', () => {
     if(isNode) {
       const result = await mdlUtils.verifyPresentation({
         deviceResponse, sessionTranscript,
-        trustedCertificates: [certChain.intermediate.pemCertificate]
+        trustedCertificates: [
+          issuerCertChainEntities.intermediate.pemCertificate
+        ]
       });
 
       expect(result).to.be.an('object');
