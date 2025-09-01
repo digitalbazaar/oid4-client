@@ -1,5 +1,11 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.1.0 - 2025-mm-dd
+
+### Added
+- Add `oid4vp.verifier.parseAuthorizationResponse()` helper that OID4VP
+  verifiers can use to parse authorization responses.
+
 ## 5.0.0 - 2025-08-30
 
 ### Added
