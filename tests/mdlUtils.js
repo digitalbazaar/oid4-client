@@ -30,7 +30,7 @@ export async function createDeviceResponse({
     .sign();
   //console.log('Device response', deviceResponse);
 
-  return deviceResponse;
+  return new Uint8Array(deviceResponse.encode());
 }
 
 export async function createPresentation({
@@ -122,7 +122,7 @@ export async function verifyPresentation({
     // console.log('DeviceSignedDocument', mdoc.documents[0]);
 
     // express cbor-encoded mdoc as an enveloped VC in a VP
-    const encodedMdoc = mdoc.encode();
+    const encodedMdoc = new Uint8Array(mdoc.encode());
     const b64Mdl = base64Encode(encodedMdoc);
     return {
       '@context': [VC_CONTEXT_2],
@@ -134,7 +134,7 @@ export async function verifyPresentation({
     };
   } catch(err) {
     //console.error('Verification failed:', err);
-    return;
+    throw err;
   }
 }
 
