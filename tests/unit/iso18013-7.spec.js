@@ -1,7 +1,7 @@
 /*!
  * Copyright (c) 2022-2025 Digital Bazaar, Inc. All rights reserved.
  */
-//import * as base64url from 'base64url-universal';
+import * as base64url from 'base64url-universal';
 import * as mdlUtils from '../mdlUtils.js';
 import {exportJWK, generateKeyPair} from 'jose';
 import {oid4vp, signJWT} from '../../lib/index.js';
@@ -158,20 +158,54 @@ describe('ISO 18013-7', () => {
     });
 
     // set `vpToken` to base64url-no-pad-encoded device response
-    //const vpToken = base64url.encode(deviceResponse);
+    const vpToken = base64url.encode(deviceResponse);
 
-    // FIXME: create authz response
+    // create authz response
+    const presentationSubmission = {
+      id: `urn:uuid:${crypto.randomUUID()}`,
+      definition_id: presentationDefinition.id,
+      descriptor_map: [{
+        id: 'org.iso.18013.5.1.mDL',
+        format: 'mso_mdoc',
+        path: '$'
+      }]
+    };
+    const {authorizationResponse} = await oid4vp.authzResponse.create({
+      presentationSubmission,
+      authorizationRequest,
+      vpToken,
+      encryptionOptions: {
+        mdl: {
+          sessionTranscript
+        }
+      }
+    });
 
-    // FIXME: parse authz response
+    // parse authz response into device response
+    let parsedDeviceResponse;
+    {
+      const {
+        responseMode, parsed
+      } = await oid4vp.verifier.parseAuthorizationResponse({
+        body: authorizationResponse,
+        getDecryptParameters() {
+          const keys = [kakPrivateKeyJwk];
+          return {keys};
+        }
+      });
+      expect(responseMode).to.eql('direct_post.jwt');
+      parsedDeviceResponse = base64url.decode(parsed.vpToken);
+    }
 
-    // FIXME: verify presentation
+    // verify presentation...
 
     // can currently only be tested in node.js because karma isn't mapping the
     // right version of `jose` for `@auth0/mdl`
     const isNode = globalThis.process !== undefined;
     if(isNode) {
       const result = await mdlUtils.verifyPresentation({
-        deviceResponse, sessionTranscript,
+        deviceResponse: parsedDeviceResponse,
+        sessionTranscript,
         trustedCertificates: [
           issuerCertChainEntities.intermediate.pemCertificate
         ]
