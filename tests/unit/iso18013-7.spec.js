@@ -130,6 +130,7 @@ describe('ISO 18013-7', () => {
     // get authz request JWT using oid4-client; this will also verify the JWT
     const searchParams = new URLSearchParams({
       client_id: leafDnsName,
+      // expected to be `request_uri` not `request` in a deployed system
       request: authzRequestJwt
     });
     const mdocUrl = `mdoc-openid4vp://?${searchParams}`;
