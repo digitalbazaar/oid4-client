@@ -1,7 +1,7 @@
 /*!
  * Copyright (c) 2022-2025 Digital Bazaar, Inc. All rights reserved.
  */
-import {_fromQueryByExampleQuery} from '../../lib/oid4vp.js';
+import {_fromQueryByExampleQuery} from '../../lib/convert/index.js';
 import chai from 'chai';
 
 chai.should();
