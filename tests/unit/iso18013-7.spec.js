@@ -11,7 +11,7 @@ import {generateCertificateChain} from '../certUtils.js';
 chai.should();
 const {expect} = chai;
 
-describe('ISO 18013-7', () => {
+describe('OID4VP ISO 18013-7 Annex B', () => {
   it('should pass', async () => {
     // get device key pair
     const deviceKeyPair = await mdlUtils.generateDeviceKeyPair();
