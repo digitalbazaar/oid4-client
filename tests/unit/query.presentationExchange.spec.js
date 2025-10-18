@@ -3,13 +3,13 @@
  */
 import {
   _fromQueryByExampleQuery
-} from '../../lib/convert/presentationExchange.js';
+} from '../../lib/query/presentationExchange.js';
 import chai from 'chai';
 
 chai.should();
 const {expect} = chai;
 
-describe('convert.presentationExchange', () => {
+describe('query.presentationExchange', () => {
   describe('QueryByExample => Presentation Definition', () => {
     it('should NOT include "vc" prefix in paths', async () => {
       const presentation_definition = _fromQueryByExampleQuery({
