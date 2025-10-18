@@ -1,13 +1,15 @@
 /*!
  * Copyright (c) 2022-2025 Digital Bazaar, Inc. All rights reserved.
  */
-import {_fromQueryByExampleQuery} from '../../lib/convert/index.js';
+import {
+  _fromQueryByExampleQuery
+} from '../../lib/convert/presentationExchange.js';
 import chai from 'chai';
 
 chai.should();
 const {expect} = chai;
 
-describe('convert', () => {
+describe('convert.presentationExchange', () => {
   describe('QueryByExample => Presentation Definition', () => {
     it('should NOT include "vc" prefix in paths', async () => {
       const presentation_definition = _fromQueryByExampleQuery({
