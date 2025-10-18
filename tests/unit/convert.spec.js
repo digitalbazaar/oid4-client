@@ -7,7 +7,7 @@ import chai from 'chai';
 chai.should();
 const {expect} = chai;
 
-describe('OID4VP', () => {
+describe('convert', () => {
   describe('QueryByExample => Presentation Definition', () => {
     it('should NOT include "vc" prefix in paths', async () => {
       const presentation_definition = _fromQueryByExampleQuery({
