@@ -166,5 +166,39 @@ describe('query.presentationExchange', () => {
         '$[\'vc\'][\'type\']'
       ]);
     });
+
+    it('should process deep query', async () => {
+      const presentation_definition = _fromQueryByExampleQuery({
+        credentialQuery: {
+          reason: `Please present your child's birth certificate to complete ` +
+            'the verification process.',
+          example: {
+            '@context': [
+              'https://www.w3.org/ns/credentials/v2',
+              'https://w3id.org/vital-records/v1rc4'
+            ],
+            type: [
+              'BirthCertificateCredential'
+            ],
+            credentialSubject: {
+              type: 'BirthCertificate',
+              certifier: {},
+              newborn: {
+                name: '',
+                birthDate: '',
+                parent: [{
+                  name: 'John Doe'
+                }]
+              }
+            }
+          }
+        }
+      });
+      expect(presentation_definition.constraints.fields[0].path).to.eql(
+        ['$[\'@context\']']);
+      expect(presentation_definition.constraints.fields[1].path).to.eql(
+        ['$[\'type\']']);
+      // FIXME: add more assertions on `credentialSubject`
+    });
   });
 });
