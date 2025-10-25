@@ -133,4 +133,217 @@ describe('query.dcql', () => {
       ]);
     });
   });
+  it('should process array of arrays query', async () => {
+    const dcqlCredentialQuery = _fromQueryByExampleQuery({
+      credentialQuery: {
+        reason: 'Present your geolocation credential to claim the prize.',
+        example: {
+          '@context': [
+            'https://www.w3.org/ns/credentials/v2',
+            'https://www.w3.org/ns/credentials/examples/v2'
+          ],
+          type: [
+            'ExampleGeoLocationCredential'
+          ],
+          credentialSubject: {
+            type: 'ExampleGeoLocation',
+            location: [[0, 1], [2, 3]]
+          }
+        }
+      }
+    });
+    expect(dcqlCredentialQuery.id).to.exist;
+    expect(dcqlCredentialQuery.format).to.eql('ldp_vc');
+    expect(dcqlCredentialQuery.meta.type_values).to.deep.equal([
+      'https://www.w3.org/2018/credentials#VerifiableCredential'
+    ]);
+    expect(dcqlCredentialQuery.claims).to.deep.equal([
+      {
+        path: ['@context', 0],
+        values: ['https://www.w3.org/ns/credentials/v2']
+      },
+      {
+        path: ['@context', 1],
+        values: ['https://www.w3.org/ns/credentials/examples/v2']
+      },
+      {
+        path: ['type'],
+        values: ['ExampleGeoLocationCredential']},
+      {
+        path: ['credentialSubject', 'type'],
+        values: ['ExampleGeoLocation']
+      },
+      {
+        path: ['credentialSubject', 'location', 0, 0],
+        values: [0]
+      },
+      {
+        path: ['credentialSubject', 'location', 0, 1],
+        values: [1]
+      },
+      {
+        path: ['credentialSubject', 'location', 1, 0],
+        values: [2]
+      },
+      {
+        path: ['credentialSubject', 'location', 1, 1],
+        values: [3]
+      }
+    ]);
+  });
+  it('should process array of arrays of arrays query', async () => {
+    const dcqlCredentialQuery = _fromQueryByExampleQuery({
+      credentialQuery: {
+        reason: 'Present your tensor credential to claim the prize.',
+        example: {
+          '@context': [
+            'https://www.w3.org/ns/credentials/v2',
+            'https://www.w3.org/ns/credentials/examples/v2'
+          ],
+          type: [
+            'ExampleTensorCredential'
+          ],
+          credentialSubject: {
+            type: 'ExampleTensor',
+            tensor: [[[0, 1], [2, 3]], [[4, 5], [6, 7]]]
+          }
+        }
+      }
+    });
+    expect(dcqlCredentialQuery.id).to.exist;
+    expect(dcqlCredentialQuery.format).to.eql('ldp_vc');
+    expect(dcqlCredentialQuery.meta.type_values).to.deep.equal([
+      'https://www.w3.org/2018/credentials#VerifiableCredential'
+    ]);
+    expect(dcqlCredentialQuery.claims).to.deep.equal([
+      {
+        path: ['@context', 0],
+        values: ['https://www.w3.org/ns/credentials/v2']
+      },
+      {
+        path: ['@context', 1],
+        values: ['https://www.w3.org/ns/credentials/examples/v2']
+      },
+      {
+        path: ['type'],
+        values: ['ExampleTensorCredential']},
+      {
+        path: ['credentialSubject', 'type'],
+        values: ['ExampleTensor']
+      },
+      {
+        path: ['credentialSubject', 'tensor', 0, 0, 0],
+        values: [0]
+      },
+      {
+        path: ['credentialSubject', 'tensor', 0, 0, 1],
+        values: [1]
+      },
+      {
+        path: ['credentialSubject', 'tensor', 0, 1, 0],
+        values: [2]
+      },
+      {
+        path: ['credentialSubject', 'tensor', 0, 1, 1],
+        values: [3]
+      },
+      {
+        path: ['credentialSubject', 'tensor', 1, 0, 0],
+        values: [4]
+      },
+      {
+        path: ['credentialSubject', 'tensor', 1, 0, 1],
+        values: [5]
+      },
+      {
+        path: ['credentialSubject', 'tensor', 1, 1, 0],
+        values: [6]
+      },
+      {
+        path: ['credentialSubject', 'tensor', 1, 1, 1],
+        values: [7]
+      }
+    ]);
+  });
+  it.only('should process array of arrays inside objects query', async () => {
+    const dcqlCredentialQuery = _fromQueryByExampleQuery({
+      credentialQuery: {
+        reason: 'Present your dimensions credential to claim the prize.',
+        example: {
+          '@context': [
+            'https://www.w3.org/ns/credentials/v2',
+            'https://www.w3.org/ns/credentials/examples/v2'
+          ],
+          type: [
+            'ExampleDimensionsCredential'
+          ],
+          credentialSubject: {
+            type: 'ExampleDimensions',
+            outer: [
+              [{
+                inner: [[0, 1], [2, 3]]
+              }],
+              [{
+                inner: [[4, 5], [6, 7]]
+              }]
+            ]
+          }
+        }
+      }
+    });
+    expect(dcqlCredentialQuery.id).to.exist;
+    expect(dcqlCredentialQuery.format).to.eql('ldp_vc');
+    expect(dcqlCredentialQuery.meta.type_values).to.deep.equal([
+      'https://www.w3.org/2018/credentials#VerifiableCredential'
+    ]);
+    expect(dcqlCredentialQuery.claims).to.deep.equal([
+      {
+        path: ['@context', 0],
+        values: ['https://www.w3.org/ns/credentials/v2']
+      },
+      {
+        path: ['@context', 1],
+        values: ['https://www.w3.org/ns/credentials/examples/v2']
+      },
+      {
+        path: ['type'],
+        values: ['ExampleDimensionsCredential']},
+      {
+        path: ['credentialSubject', 'type'],
+        values: ['ExampleDimensions']
+      },
+      {
+        path: ['credentialSubject', 'outer', 0, 0, 'inner', 0, 0],
+        values: [0]
+      },
+      {
+        path: ['credentialSubject', 'outer', 0, 0, 'inner', 0, 1],
+        values: [1]
+      },
+      {
+        path: ['credentialSubject', 'outer', 0, 0, 'inner', 1, 0],
+        values: [2]
+      },
+      {
+        path: ['credentialSubject', 'outer', 0, 0, 'inner', 1, 1],
+        values: [3]
+      },
+      {
+        path: ['credentialSubject', 'outer', 1, 0, 'inner', 0, 0],
+        values: [4]
+      },
+      {
+        path: ['credentialSubject', 'outer', 1, 0, 'inner', 0, 1],
+        values: [5]
+      },
+      {
+        path: ['credentialSubject', 'outer', 1, 0, 'inner', 1, 0],
+        values: [6]
+      },
+      {
+        path: ['credentialSubject', 'outer', 1, 0, 'inner', 1, 1],
+        values: [7]
+      }
+    ]);
+  });
 });
