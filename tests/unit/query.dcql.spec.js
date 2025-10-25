@@ -2,7 +2,7 @@
  * Copyright (c) 2025 Digital Bazaar, Inc. All rights reserved.
  */
 import {
-  _fromQueryByExampleQuery
+  _fromQueryByExampleQuery, _toQueryByExampleQuery
 } from '../../lib/query/dcql.js';
 import chai from 'chai';
 
@@ -53,7 +53,7 @@ describe('query.dcql', () => {
           values: ['https://w3id.org/vital-records/v1rc4']
         },
         {
-          path: ['type'],
+          path: ['type', null],
           values: ['BirthCertificateCredential']},
         {
           path: ['credentialSubject', 'type'],
@@ -114,7 +114,7 @@ describe('query.dcql', () => {
           values: ['https://w3id.org/vital-records/v1rc4']
         },
         {
-          path: ['type'],
+          path: ['type', null],
           values: ['BirthCertificateCredential']},
         {
           path: ['credentialSubject', 'type'],
@@ -167,7 +167,7 @@ describe('query.dcql', () => {
         values: ['https://www.w3.org/ns/credentials/examples/v2']
       },
       {
-        path: ['type'],
+        path: ['type', null],
         values: ['ExampleGeoLocationCredential']},
       {
         path: ['credentialSubject', 'type'],
@@ -225,7 +225,7 @@ describe('query.dcql', () => {
         values: ['https://www.w3.org/ns/credentials/examples/v2']
       },
       {
-        path: ['type'],
+        path: ['type', null],
         values: ['ExampleTensorCredential']},
       {
         path: ['credentialSubject', 'type'],
@@ -265,7 +265,7 @@ describe('query.dcql', () => {
       }
     ]);
   });
-  it.only('should process array of arrays inside objects query', async () => {
+  it('should process array of arrays inside objects query', async () => {
     const dcqlCredentialQuery = _fromQueryByExampleQuery({
       credentialQuery: {
         reason: 'Present your dimensions credential to claim the prize.',
@@ -306,7 +306,7 @@ describe('query.dcql', () => {
         values: ['https://www.w3.org/ns/credentials/examples/v2']
       },
       {
-        path: ['type'],
+        path: ['type', null],
         values: ['ExampleDimensionsCredential']},
       {
         path: ['credentialSubject', 'type'],
@@ -345,5 +345,78 @@ describe('query.dcql', () => {
         values: [7]
       }
     ]);
+  });
+
+  describe('DCQL => QueryByExample', () => {
+    it('should process deep query', async () => {
+      const credentialQuery = _toQueryByExampleQuery({
+        dcqlCredentialQuery: {
+          id: crypto.randomUUID(),
+          format: 'ldp_vc',
+          meta: {
+            reason:
+            `Please present your child's birth certificate to complete ` +
+              'the verification process.',
+            type_values: [
+              'https://www.w3.org/2018/credentials#VerifiableCredential'
+            ]
+          },
+          claims: [
+            {
+              path: ['@context', 0],
+              values: ['https://www.w3.org/ns/credentials/v2']
+            },
+            {
+              path: ['@context', 1],
+              values: ['https://w3id.org/vital-records/v1rc4']
+            },
+            {
+              path: ['type', null],
+              values: ['BirthCertificateCredential']},
+            {
+              path: ['credentialSubject', 'type'],
+              values: ['BirthCertificate']
+            },
+            {
+              path: ['credentialSubject', 'certifier' ]},
+            {
+              path: ['credentialSubject', 'newborn', 'name']},
+            {
+              path: ['credentialSubject', 'newborn', 'birthDate']},
+            {
+              path: ['credentialSubject', 'newborn', 'parent', 0, 'name'],
+              values: ['John Doe']
+            }
+          ]
+        }
+      });
+
+      const expectedCredentialQuery = {
+        reason: `Please present your child's birth certificate to complete ` +
+          'the verification process.',
+        example: {
+          '@context': [
+            'https://www.w3.org/ns/credentials/v2',
+            'https://w3id.org/vital-records/v1rc4'
+          ],
+          type: [
+            'BirthCertificateCredential'
+          ],
+          credentialSubject: {
+            type: 'BirthCertificate',
+            certifier: '',
+            newborn: {
+              name: '',
+              birthDate: '',
+              parent: [{
+                name: 'John Doe'
+              }]
+            }
+          }
+        }
+      };
+
+      expect(credentialQuery).to.deep.equal(expectedCredentialQuery);
+    });
   });
 });
