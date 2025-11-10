@@ -198,7 +198,90 @@ describe('query.presentationExchange', () => {
         ['$[\'@context\']']);
       expect(presentation_definition.constraints.fields[1].path).to.eql(
         ['$[\'type\']']);
-      // FIXME: add more assertions on `credentialSubject`
+      expect(presentation_definition.constraints.fields).to.deep.equal([
+        {
+          path: [
+            '$[\'@context\']'
+          ],
+          filter: {
+            type: 'array',
+            allOf: [
+              {
+                contains: {
+                  type: 'string',
+                  const: 'https://www.w3.org/ns/credentials/v2'
+                }
+              },
+              {
+                contains: {
+                  type: 'string',
+                  const: 'https://w3id.org/vital-records/v1rc4'
+                }
+              }
+            ]
+          }
+        }, {
+          path: [
+            '$[\'type\']'
+          ],
+          filter: {
+            type: 'array',
+            allOf: [
+              {
+                contains: {
+                  type: 'string',
+                  const: 'BirthCertificateCredential'
+                }
+              }
+            ]
+          }
+        }, {
+          path: [
+            '$[\'credentialSubject\'][\'type\']'
+          ],
+          filter: {
+            type: 'string',
+            const: 'BirthCertificate'
+          }
+        }, {
+          path: [
+            '$[\'credentialSubject\'][\'certifier\']'
+          ],
+          filter: {
+            type: 'object'
+          }
+        }, {
+          path: [
+            '$[\'credentialSubject\'][\'newborn\'][\'name\']'
+          ],
+          filter: {
+            type: 'string',
+            const: ''
+          }
+        }, {
+          path: [
+            '$[\'credentialSubject\'][\'newborn\'][\'birthDate\']'
+          ],
+          filter: {
+            type: 'string',
+            const: ''
+          }
+        }, {
+          path: [
+            '$[\'credentialSubject\'][\'newborn\'][\'parent\']'
+          ],
+          filter: {
+            type: 'array',
+            allOf: [
+              {
+                contains: {
+                  type: 'object'
+                }
+              }
+            ]
+          }
+        }
+      ]);
     });
   });
 });
