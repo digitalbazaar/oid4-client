@@ -3,12 +3,13 @@
  */
 import {edgeCaseCredentials, mockCredentials} from './mockCredentials.js';
 import {_toQueryByExampleQuery} from '../../lib/query/dcql.js';
-import {credentialMatches} from '../../lib/query/match.js';
-import {exampleToJsonPointerMap} from '../../lib/query/queryByExample.js';
+import {query} from '@digitalbazaar/oid4-client';
 
 import chai from 'chai';
 chai.should();
 const {expect} = chai;
+
+const {credentialMatches} = query;
 
 describe.only('query.match', () => {
   describe('credentialMatches()', function() {
@@ -662,7 +663,7 @@ describe.only('query.match', () => {
 });
 
 function _matchCredentials({credentials, queryByExample}) {
-  const map = exampleToJsonPointerMap(queryByExample);
+  const map = query.queryByExample.toJsonPointerMap(queryByExample);
   return credentials.filter(
     credential => credentialMatches({credential, map}));
 }
