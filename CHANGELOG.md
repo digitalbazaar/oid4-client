@@ -1,5 +1,10 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.2.0 - 2025-mm-dd
+
+### Added
+- Add support for converting `QueryByExample` to/from DCQL.
+
 ## 5.1.0 - 2025-08-31
 
 ### Added
