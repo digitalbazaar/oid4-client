@@ -4,6 +4,16 @@
 
 ### Added
 - Add support for converting `QueryByExample` to/from DCQL.
+- Add `query` API with these utilities:
+  - `query.credentialMatches({credential, map})`: Returns whether the given
+    credential matches the given JSON pointer map. A JSON pointer map must be
+    generated using one of the follow methods:
+    - `query.dcql.toJsonPointerMap(...)`: Converts a DCQL `credential`
+    query to a JSON pointer map.
+    - `query.presentationExchange.toJsonPointerMap(...)`: Converts a
+      presentation exchange input descriptor to a JSON pointer map.
+    - `query.queryByExample.toJsonPointerMap(...)`: Converts a
+      `QueryByExample` `example` object to a JSON pointer map.
 
 ## 5.1.0 - 2025-08-31
 
