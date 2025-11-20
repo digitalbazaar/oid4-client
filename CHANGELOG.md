@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.2.1 - 2025-11-dd
+## 5.2.1 - 2025-11-20
 
 ### Fixed
 - Fix bug related to typo w/`vp_formats_supported`.
