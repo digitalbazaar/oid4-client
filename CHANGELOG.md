@@ -4,6 +4,8 @@
 
 ### Fixed
 - Fix bug related to typo w/`vp_formats_supported`.
+- Generate `presentation_definition` for zero or greater than one
+  `QueryByExample` when converting query formats.
 
 ## 5.2.0 - 2025-11-17
 
