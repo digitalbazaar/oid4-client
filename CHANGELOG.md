@@ -1,5 +1,11 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.3.0 - 2025-12-dd
+
+### Added
+- Add `encryptionOptions.enc` option for encrypting authz responses
+  using `A128GCM`.
+
 ## 5.2.1 - 2025-11-20
 
 ### Fixed

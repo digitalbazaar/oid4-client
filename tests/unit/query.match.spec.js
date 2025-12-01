@@ -11,7 +11,7 @@ const {expect} = chai;
 
 const {credentialMatches} = query;
 
-describe.only('query.match', () => {
+describe('query.match', () => {
   describe('credentialMatches()', function() {
     describe('API and basic functionality', function() {
       it('should use named parameters API', function() {
