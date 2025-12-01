@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.3.0 - 2025-12-dd
+## 5.3.0 - 2025-12-01
 
 ### Added
 - Add `encryptionOptions.enc` option for encrypting authz responses
