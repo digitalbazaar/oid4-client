@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.4.0 - 2026-01-dd
+## 5.4.0 - 2026-01-17
 
 ### Changed
 - Improve `DIDAuthentication` query conversion between OID4VP authorization
