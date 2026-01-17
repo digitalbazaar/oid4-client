@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2025 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2025-2026 Digital Bazaar, Inc. All rights reserved.
  */
 import {
   _fromQueryByExampleQuery, _toQueryByExampleQuery
@@ -11,6 +11,49 @@ const {expect} = chai;
 
 describe('query.dcql', () => {
   describe('QueryByExample => DCQL', () => {
+    it('should handle "acceptedEnvelopes"', async () => {
+      const dcqlCredentialQuery = _fromQueryByExampleQuery({
+        credentialQuery: {
+          reason: `Please present your child's birth certificate to complete ` +
+            'the verification process.',
+          example: {
+            '@context': [
+              'https://www.w3.org/ns/credentials/v2',
+              'https://w3id.org/vital-records/v1rc4'
+            ],
+            type: [
+              'BirthCertificateCredential'
+            ],
+            credentialSubject: {
+              type: 'BirthCertificate'
+            }
+          },
+          acceptedEnvelopes: ['application/jwt']
+        }
+      });
+      expect(dcqlCredentialQuery.id).to.exist;
+      expect(dcqlCredentialQuery.format).to.eql('jwt_vc_json');
+      expect(dcqlCredentialQuery.meta.type_values).to.deep.equal([
+        'https://www.w3.org/2018/credentials#VerifiableCredential'
+      ]);
+      expect(dcqlCredentialQuery.claims).to.deep.equal([
+        {
+          path: ['@context', 0],
+          values: ['https://www.w3.org/ns/credentials/v2']
+        },
+        {
+          path: ['@context', 1],
+          values: ['https://w3id.org/vital-records/v1rc4']
+        },
+        {
+          path: ['type', null],
+          values: ['BirthCertificateCredential']},
+        {
+          path: ['credentialSubject', 'type'],
+          values: ['BirthCertificate']
+        }
+      ]);
+    });
     it('should process deep query', async () => {
       const dcqlCredentialQuery = _fromQueryByExampleQuery({
         credentialQuery: {
@@ -348,6 +391,77 @@ describe('query.dcql', () => {
   });
 
   describe('DCQL => QueryByExample', () => {
+    it('should handle "acceptedEnvelopes"', async () => {
+      const credentialQuery = _toQueryByExampleQuery({
+        dcqlCredentialQuery: {
+          id: crypto.randomUUID(),
+          format: 'jwt_vc_json',
+          meta: {
+            reason:
+            `Please present your child's birth certificate to complete ` +
+              'the verification process.',
+            type_values: [
+              'https://www.w3.org/2018/credentials#VerifiableCredential'
+            ]
+          },
+          claims: [
+            {
+              path: ['@context', 0],
+              values: ['https://www.w3.org/ns/credentials/v2']
+            },
+            {
+              path: ['@context', 1],
+              values: ['https://w3id.org/vital-records/v1rc4']
+            },
+            {
+              path: ['type', null],
+              values: ['BirthCertificateCredential']},
+            {
+              path: ['credentialSubject', 'type'],
+              values: ['BirthCertificate']
+            },
+            {
+              path: ['credentialSubject', 'certifier' ]},
+            {
+              path: ['credentialSubject', 'newborn', 'name']},
+            {
+              path: ['credentialSubject', 'newborn', 'birthDate']},
+            {
+              path: ['credentialSubject', 'newborn', 'parent', 0, 'name'],
+              values: ['John Doe']
+            }
+          ]
+        }
+      });
+
+      const expectedCredentialQuery = {
+        reason: `Please present your child's birth certificate to complete ` +
+          'the verification process.',
+        example: {
+          '@context': [
+            'https://www.w3.org/ns/credentials/v2',
+            'https://w3id.org/vital-records/v1rc4'
+          ],
+          type: [
+            'BirthCertificateCredential'
+          ],
+          credentialSubject: {
+            type: 'BirthCertificate',
+            certifier: '',
+            newborn: {
+              name: '',
+              birthDate: '',
+              parent: [{
+                name: 'John Doe'
+              }]
+            }
+          }
+        },
+        acceptedEnvelopes: ['application/jwt']
+      };
+
+      expect(credentialQuery).to.deep.equal(expectedCredentialQuery);
+    });
     it('should process deep query', async () => {
       const credentialQuery = _toQueryByExampleQuery({
         dcqlCredentialQuery: {
