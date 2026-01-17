@@ -1,5 +1,18 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.4.0 - 2026-01-dd
+
+### Changed
+- Improve `DIDAuthentication` query conversion between OID4VP authorization
+  requests w/DCQL and VPR. Now, if multiple `DIDAuthentication` queries
+  are provided in a VPR, the merged accepted accepted cryptosuites and
+  envelopes will appear in the authz request's `vp_formats_supported` field
+  instead of only using the last `DIDAuthentication` query's values. When
+  converting from an authz request to a VPR, multiple `DIDAuthentication`
+  queries will be generated (one per group as needed), even if they are
+  duplicates, so as to ensure each `group` has a `DIDAuthentication`
+  query.
+
 ## 5.3.0 - 2025-12-01
 
 ### Added
