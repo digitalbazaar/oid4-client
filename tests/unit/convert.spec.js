@@ -253,9 +253,7 @@ describe('convert', () => {
           proof_type_values: ['DataIntegrityProof'],
           cryptosuite_values: ['ecdsa-rdfc-2019']
         },
-        jwt_vc_json: {},
-        // legacy (pre-OID4VP 1.0)
-        jwt_vp_json: {}
+        jwt_vc_json: {}
       });
 
       // legacy (pre-OID4VP 1.0)
@@ -264,6 +262,13 @@ describe('convert', () => {
       expect(vp_formats).to.deep.equal({
         ldp_vp: {
           proof_type: ['ecdsa-rdfc-2019']
+        },
+        // legacy (pre-OID4VP 1.0)
+        jwt_vp: {
+          alg: ['EdDSA', 'Ed25519', 'ES256', 'ES384']
+        },
+        jwt_vp_json: {
+          alg: ['EdDSA', 'Ed25519', 'ES256', 'ES384']
         }
       });
 
