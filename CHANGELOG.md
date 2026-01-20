@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.4.1 - 2026-01-dd
+## 5.4.1 - 2026-01-20
 
 ### Fixed
 - Add `vp_formats.jwt_vp` and `vp_formats.jwt_vp_json` to `client_metadata`
