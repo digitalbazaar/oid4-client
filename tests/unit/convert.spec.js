@@ -296,6 +296,20 @@ describe('convert', () => {
 
       expect(presentation_definition.id).to.exist;
       expect(presentation_definition.input_descriptors).to.exist;
+      expect(presentation_definition.input_descriptors).to.be.an('array');
+      const {input_descriptors} = presentation_definition;
+      for(const {format} of input_descriptors) {
+        if(format.ldp_vc) {
+          expect(format.ldp_vc).to.deep.equal({
+            proof_type: ['ecdsa-rdfc-2019']
+          });
+        }
+        if(format.jwt_vc_json) {
+          expect(format.jwt_vc_json).to.deep.equal({
+            alg: ['EdDSA', 'Ed25519', 'ES256', 'ES384']
+          });
+        }
+      }
     });
 
     it('VPR => authorization request w/client ID prefix', async () => {
