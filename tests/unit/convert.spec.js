@@ -102,7 +102,7 @@ describe('convert', () => {
       const credentialQuery = credentials[0];
       expect(credentialQuery.format).to.eql('ldp_vc');
       expect(credentialQuery.meta.type_values).to.deep.equal([
-        'https://www.w3.org/2018/credentials#VerifiableCredential'
+        ['https://www.w3.org/2018/credentials#VerifiableCredential']
       ]);
       expect(credentialQuery.claims).to.deep.equal([
         {
@@ -278,10 +278,10 @@ describe('convert', () => {
       expect(credentials[0].format).to.eql('ldp_vc');
       expect(credentials[1].format).to.eql('jwt_vc_json');
       expect(credentials[0].meta.type_values).to.deep.equal([
-        'https://www.w3.org/2018/credentials#VerifiableCredential'
+        ['https://www.w3.org/2018/credentials#VerifiableCredential']
       ]);
       expect(credentials[1].meta.type_values).to.deep.equal([
-        'https://www.w3.org/2018/credentials#VerifiableCredential'
+        ['https://www.w3.org/2018/credentials#VerifiableCredential']
       ]);
 
       expect(dcql_query.credential_sets).to.exist;
@@ -374,7 +374,7 @@ describe('convert', () => {
       const credentialQuery = credentials[0];
       expect(credentialQuery.format).to.eql('ldp_vc');
       expect(credentialQuery.meta.type_values).to.deep.equal([
-        'https://www.w3.org/2018/credentials#VerifiableCredential'
+        ['https://www.w3.org/2018/credentials#VerifiableCredential']
       ]);
 
       expect(presentation_definition.id).to.exist;
@@ -414,7 +414,7 @@ describe('convert', () => {
             meta: {
               reason: purpose,
               type_values: [
-                'https://www.w3.org/2018/credentials#VerifiableCredential'
+                ['https://www.w3.org/2018/credentials#VerifiableCredential']
               ]
             },
             claims: [
@@ -624,7 +624,7 @@ describe('convert', () => {
             meta: {
               reason: purpose,
               type_values: [
-                'https://www.w3.org/2018/credentials#VerifiableCredential'
+                ['https://www.w3.org/2018/credentials#VerifiableCredential']
               ]
             },
             claims: [
@@ -744,7 +744,7 @@ describe('convert', () => {
             meta: {
               reason: purpose,
               type_values: [
-                'https://www.w3.org/2018/credentials#VerifiableCredential'
+                ['https://www.w3.org/2018/credentials#VerifiableCredential']
               ]
             },
             claims: [
@@ -780,7 +780,7 @@ describe('convert', () => {
             meta: {
               reason: purpose,
               type_values: [
-                'https://www.w3.org/2018/credentials#VerifiableCredential'
+                ['https://www.w3.org/2018/credentials#VerifiableCredential']
               ]
             },
             claims: [

@@ -1,5 +1,10 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.5.0 - 2026-01-xx
+
+### Fixed
+- Fix `type_values` nesting level.
+
 ## 5.4.1 - 2026-01-20
 
 ### Fixed

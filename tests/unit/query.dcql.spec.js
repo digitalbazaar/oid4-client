@@ -34,7 +34,7 @@ describe('query.dcql', () => {
       expect(dcqlCredentialQuery.id).to.exist;
       expect(dcqlCredentialQuery.format).to.eql('jwt_vc_json');
       expect(dcqlCredentialQuery.meta.type_values).to.deep.equal([
-        'https://www.w3.org/2018/credentials#VerifiableCredential'
+        ['https://www.w3.org/2018/credentials#VerifiableCredential']
       ]);
       expect(dcqlCredentialQuery.claims).to.deep.equal([
         {
@@ -84,7 +84,7 @@ describe('query.dcql', () => {
       expect(dcqlCredentialQuery.id).to.exist;
       expect(dcqlCredentialQuery.format).to.eql('ldp_vc');
       expect(dcqlCredentialQuery.meta.type_values).to.deep.equal([
-        'https://www.w3.org/2018/credentials#VerifiableCredential'
+        ['https://www.w3.org/2018/credentials#VerifiableCredential']
       ]);
       expect(dcqlCredentialQuery.claims).to.deep.equal([
         {
@@ -145,7 +145,7 @@ describe('query.dcql', () => {
       expect(dcqlCredentialQuery.id).to.exist;
       expect(dcqlCredentialQuery.format).to.eql('ldp_vc');
       expect(dcqlCredentialQuery.meta.type_values).to.deep.equal([
-        'https://www.w3.org/2018/credentials#VerifiableCredential'
+        ['https://www.w3.org/2018/credentials#VerifiableCredential']
       ]);
       expect(dcqlCredentialQuery.claims).to.deep.equal([
         {
@@ -198,7 +198,7 @@ describe('query.dcql', () => {
     expect(dcqlCredentialQuery.id).to.exist;
     expect(dcqlCredentialQuery.format).to.eql('ldp_vc');
     expect(dcqlCredentialQuery.meta.type_values).to.deep.equal([
-      'https://www.w3.org/2018/credentials#VerifiableCredential'
+      ['https://www.w3.org/2018/credentials#VerifiableCredential']
     ]);
     expect(dcqlCredentialQuery.claims).to.deep.equal([
       {
@@ -256,7 +256,7 @@ describe('query.dcql', () => {
     expect(dcqlCredentialQuery.id).to.exist;
     expect(dcqlCredentialQuery.format).to.eql('ldp_vc');
     expect(dcqlCredentialQuery.meta.type_values).to.deep.equal([
-      'https://www.w3.org/2018/credentials#VerifiableCredential'
+      ['https://www.w3.org/2018/credentials#VerifiableCredential']
     ]);
     expect(dcqlCredentialQuery.claims).to.deep.equal([
       {
@@ -337,7 +337,7 @@ describe('query.dcql', () => {
     expect(dcqlCredentialQuery.id).to.exist;
     expect(dcqlCredentialQuery.format).to.eql('ldp_vc');
     expect(dcqlCredentialQuery.meta.type_values).to.deep.equal([
-      'https://www.w3.org/2018/credentials#VerifiableCredential'
+      ['https://www.w3.org/2018/credentials#VerifiableCredential']
     ]);
     expect(dcqlCredentialQuery.claims).to.deep.equal([
       {
@@ -401,7 +401,7 @@ describe('query.dcql', () => {
             `Please present your child's birth certificate to complete ` +
               'the verification process.',
             type_values: [
-              'https://www.w3.org/2018/credentials#VerifiableCredential'
+              ['https://www.w3.org/2018/credentials#VerifiableCredential']
             ]
           },
           claims: [
@@ -472,7 +472,7 @@ describe('query.dcql', () => {
             `Please present your child's birth certificate to complete ` +
               'the verification process.',
             type_values: [
-              'https://www.w3.org/2018/credentials#VerifiableCredential'
+              ['https://www.w3.org/2018/credentials#VerifiableCredential']
             ]
           },
           claims: [
