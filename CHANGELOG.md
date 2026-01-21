@@ -2,6 +2,9 @@
 
 ## 5.5.0 - 2026-01-xx
 
+### Added
+- Add support for credential format requirements (`ldp_vc` and `jwt_vc_json`) in presentation definition input descriptors.
+
 ### Fixed
 - Fix DCQL `type_values` nesting level.
 
