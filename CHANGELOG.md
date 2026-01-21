@@ -1,10 +1,10 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.5.0 - 2026-01-xx
+## 5.5.0 - 2026-01-21
 
 ### Added
 - Add support for credential format requirements (`ldp_vc` and `jwt_vc_json`)
-  in presentation definition input descriptors.
+  in presentation definition input descriptors when converting from VPR.
 
 ### Fixed
 - Fix DCQL `type_values` nesting level.
