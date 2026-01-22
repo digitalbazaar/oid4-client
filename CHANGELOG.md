@@ -1,5 +1,11 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.6.0 - 2026-01-xx
+
+### Added
+- Add support for credential and presentation format requirements
+  in presentation definition format section (`presentation_definition.format`).
+
 ## 5.5.0 - 2026-01-21
 
 ### Added

@@ -295,6 +295,24 @@ describe('convert', () => {
         credentials[1].id);
 
       expect(presentation_definition.id).to.exist;
+      expect(presentation_definition.format).to.exist;
+      expect(presentation_definition.format).to.deep.equal({
+        jwt_vp: {
+          alg: ['EdDSA', 'Ed25519', 'ES256', 'ES384']
+        },
+        jwt_vp_json: {
+          alg: ['EdDSA', 'Ed25519', 'ES256', 'ES384']
+        },
+        jwt_vc_json: {
+          alg: ['EdDSA', 'Ed25519', 'ES256', 'ES384']
+        },
+        ldp_vp: {
+          proof_type: ['ecdsa-rdfc-2019']
+        },
+        ldp_vc: {
+          proof_type: ['ecdsa-rdfc-2019']
+        },
+      });
       expect(presentation_definition.input_descriptors).to.exist;
       expect(presentation_definition.input_descriptors).to.be.an('array');
       const {input_descriptors} = presentation_definition;
