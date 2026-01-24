@@ -1,5 +1,10 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.6.2 - 2026-01-24
+
+### Fixed
+- No-op; release of 5.6.1.
+
 ## 5.6.1 - 2026-01-24
 
 ### Fixed
