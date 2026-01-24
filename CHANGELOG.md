@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.6.1 - 2026-01-dd
+## 5.6.1 - 2026-01-24
 
 ### Fixed
 - Ensure `submission_requirements` is used in presentation exchange to
