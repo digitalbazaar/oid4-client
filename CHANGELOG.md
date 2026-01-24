@@ -4,7 +4,14 @@
 
 ### Fixed
 - Ensure `submission_requirements` is used in presentation exchange to
-  differentiate between different groups of acceptable inputs.
+  differentiate between different groups of acceptable inputs. The
+  "group" terminology used in VPR and the "group" terminology in PE
+  is not identical; in VPR, a single `group` is always selected, but
+  in PE the selection criteria is determined by `submission_requirements`
+  rules that indicate how to pick `input_descriptors`. So, each VPR
+  group is mapped to a PE `input_descriptor`, but each one is in the
+  same PE "group". Finally the `submission_requirements` indicate that
+  a single `input_descriptor` from the PE "group" must be selected.
 
 ## 5.6.0 - 2026-01-22
 
