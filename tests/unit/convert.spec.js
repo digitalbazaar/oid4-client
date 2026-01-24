@@ -334,6 +334,12 @@ describe('convert', () => {
       }
       expect(groups).to.be.an('array');
       expect(groups.length).to.equal(2);
+      // VPR groups map to a PE `input_descriptor` not to a "PE group";
+      // therefore there is always just one "PE group" with every
+      // `input_descriptor` being a member from which a single
+      // `input_descriptor` may be chosen; so every "group" expressed in
+      // an `input_descriptor` (all collected in `groups` here) should be
+      // the same:
       expect(groups).to.deep.equal([groups[0], groups[0]]);
 
       expect(presentation_definition.submission_requirements).to.exist;
