@@ -138,6 +138,7 @@ describe('convert', () => {
 
       expect(presentation_definition.id).to.exist;
       expect(presentation_definition.input_descriptors).to.exist;
+      expect(presentation_definition.submission_requirements).to.not.exist;
     });
 
     it('VPR w/groups => authorization request', async () => {
@@ -313,10 +314,12 @@ describe('convert', () => {
           proof_type: ['ecdsa-rdfc-2019']
         },
       });
+
       expect(presentation_definition.input_descriptors).to.exist;
       expect(presentation_definition.input_descriptors).to.be.an('array');
       const {input_descriptors} = presentation_definition;
-      for(const {format} of input_descriptors) {
+      const groups = [];
+      for(const {format, group} of input_descriptors) {
         if(format.ldp_vc) {
           expect(format.ldp_vc).to.deep.equal({
             proof_type: ['ecdsa-rdfc-2019']
@@ -327,7 +330,21 @@ describe('convert', () => {
             alg: ['EdDSA', 'Ed25519', 'ES256', 'ES384']
           });
         }
+        groups.push(group);
       }
+      expect(groups).to.deep.equal([['non-enveloped'], ['enveloped']]);
+
+      expect(presentation_definition.submission_requirements).to.exist;
+      const {submission_requirements} = presentation_definition;
+      expect(submission_requirements.length).to.equal(2);
+      const froms = [];
+      for(const submission_requirement of submission_requirements) {
+        const {rule, count, from} = submission_requirement;
+        expect(rule).to.equal('pick');
+        expect(count).to.equal(1);
+        froms.push(from);
+      }
+      expect(froms).to.deep.equal(['non-enveloped', 'enveloped']);
     });
 
     it('VPR => authorization request w/client ID prefix', async () => {

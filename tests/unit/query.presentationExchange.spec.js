@@ -29,6 +29,7 @@ describe('query.presentationExchange', () => {
         },
         prefixJwtVcPath: false
       });
+      expect(presentation_definition.submission_requirements).to.not.exist;
       expect(presentation_definition.constraints.fields[0].path).to.eql(
         ['$[\'@context\']']);
       expect(presentation_definition.constraints.fields[1].path).to.eql(
@@ -53,6 +54,7 @@ describe('query.presentationExchange', () => {
         },
         prefixJwtVcPath: true
       });
+      expect(presentation_definition.submission_requirements).to.not.exist;
       expect(presentation_definition.constraints.fields[0].path).to.eql([
         '$[\'@context\']',
         '$[\'vc\'][\'@context\']'
@@ -80,6 +82,7 @@ describe('query.presentationExchange', () => {
           }
         }
       });
+      expect(presentation_definition.submission_requirements).to.not.exist;
       expect(presentation_definition.constraints.fields[0].path).to.eql(
         ['$[\'@context\']']);
       expect(presentation_definition.constraints.fields[1].path).to.eql(
@@ -104,6 +107,7 @@ describe('query.presentationExchange', () => {
           acceptedCryptosuites: ['bbs-2023']
         }
       });
+      expect(presentation_definition.submission_requirements).to.not.exist;
       expect(presentation_definition.constraints.fields[0].path).to.eql(
         ['$[\'@context\']']);
       expect(presentation_definition.constraints.fields[1].path).to.eql(
@@ -128,6 +132,7 @@ describe('query.presentationExchange', () => {
           acceptedEnvelopes: ['application/jwt']
         }
       });
+      expect(presentation_definition.submission_requirements).to.not.exist;
       expect(presentation_definition.constraints.fields[0].path).to.eql([
         '$[\'@context\']',
         '$[\'vc\'][\'@context\']'
@@ -157,6 +162,7 @@ describe('query.presentationExchange', () => {
           acceptedEnvelopes: ['application/jwt']
         }
       });
+      expect(presentation_definition.submission_requirements).to.not.exist;
       expect(presentation_definition.constraints.fields[0].path).to.eql([
         '$[\'@context\']',
         '$[\'vc\'][\'@context\']'
@@ -194,6 +200,7 @@ describe('query.presentationExchange', () => {
           }
         }
       });
+      expect(presentation_definition.submission_requirements).to.not.exist;
       expect(presentation_definition.constraints.fields[0].path).to.eql(
         ['$[\'@context\']']);
       expect(presentation_definition.constraints.fields[1].path).to.eql(
