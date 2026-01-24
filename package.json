@@ -1,6 +1,6 @@
 {
   "name": "@digitalbazaar/oid4-client",
-  "version": "5.6.1-0",
+  "version": "5.6.1",
   "description": "An OID4 (VC + VP) client",
   "homepage": "https://github.com/digitalbazaar/oid4-client",
   "author": {
