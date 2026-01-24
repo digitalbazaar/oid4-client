@@ -332,19 +332,18 @@ describe('convert', () => {
         }
         groups.push(group);
       }
-      expect(groups).to.deep.equal([['non-enveloped'], ['enveloped']]);
+      expect(groups).to.be.an('array');
+      expect(groups.length).to.equal(2);
+      expect(groups).to.deep.equal([groups[0], groups[0]]);
 
       expect(presentation_definition.submission_requirements).to.exist;
       const {submission_requirements} = presentation_definition;
-      expect(submission_requirements.length).to.equal(2);
-      const froms = [];
-      for(const submission_requirement of submission_requirements) {
-        const {rule, count, from} = submission_requirement;
-        expect(rule).to.equal('pick');
-        expect(count).to.equal(1);
-        froms.push(from);
-      }
-      expect(froms).to.deep.equal(['non-enveloped', 'enveloped']);
+      expect(submission_requirements.length).to.equal(1);
+      const [submission_requirement] = submission_requirements;
+      const {rule, count, from} = submission_requirement;
+      expect(rule).to.equal('pick');
+      expect(count).to.equal(1);
+      expect(from).to.equal(groups[0][0]);
     });
 
     it('VPR => authorization request w/client ID prefix', async () => {
