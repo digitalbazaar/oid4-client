@@ -1,5 +1,11 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.6.3 - 2026-01-dd
+
+### Fixed
+- Handle VPR => PE conversion case with a VPR that has no `QueryByExample`
+  or no `DIDAuthentication` queries.
+
 ## 5.6.2 - 2026-01-24
 
 ### Fixed
