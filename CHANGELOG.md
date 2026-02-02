@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.7.0 - 2026-02-dd
+## 5.7.0 - 2026-02-02
 
 ### Added
 - Add support for string values in `acceptedCryptosuites` and
