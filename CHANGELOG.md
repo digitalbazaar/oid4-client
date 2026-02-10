@@ -4,7 +4,7 @@
 
 ### Fixed
 - Handle VPR => PE conversion for property existence queries by ensuring
-  empty strings generate a type check rather than a literal equality constraint.
+  empty strings only generate a type check not a literal equality constraint.
 
 ## 5.7.0 - 2026-02-02
 
