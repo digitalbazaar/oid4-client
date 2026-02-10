@@ -1,5 +1,10 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.7.2 - 2026-02-10
+
+### Fixed
+- Re-release of 5.7.1; no changes.
+
 ## 5.7.1 - 2026-02-10
 
 ### Fixed
