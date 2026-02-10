@@ -262,16 +262,14 @@ describe('query.presentationExchange', () => {
             '$[\'credentialSubject\'][\'newborn\'][\'name\']'
           ],
           filter: {
-            type: 'string',
-            const: ''
+            type: 'string'
           }
         }, {
           path: [
             '$[\'credentialSubject\'][\'newborn\'][\'birthDate\']'
           ],
           filter: {
-            type: 'string',
-            const: ''
+            type: 'string'
           }
         }, {
           path: [
