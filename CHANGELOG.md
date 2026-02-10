@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.7.1 - 2026-02-xx
+## 5.7.1 - 2026-02-10
 
 ### Fixed
 - Handle VPR => PE conversion for property existence queries by ensuring
