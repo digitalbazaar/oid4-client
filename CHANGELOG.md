@@ -1,5 +1,12 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.8.0 - 2026-02-dd
+
+### Added
+- Add `mdl.encodeSessionTranscript()` API. This API can be called with
+  `handover` options to return an mDL SessionTranscript variant for
+  implementing ISO-18013-7 (various annexes).
+
 ## 5.7.2 - 2026-02-10
 
 ### Fixed
