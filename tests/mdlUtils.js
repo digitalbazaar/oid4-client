@@ -1,11 +1,12 @@
 /*
- * Copyright (c) 2025 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2025-2026 Digital Bazaar, Inc. All rights reserved.
  */
 import * as base64url from 'base64url-universal';
 import {
-  DataItem, DeviceResponse, Document, MDoc, /*parse,*/ Verifier
+  DeviceResponse, Document, MDoc, /*parse,*/ Verifier
 } from '@auth0/mdl';
 import {base64Encode} from '../lib/util.js';
+import {encodeSessionTranscript} from '../lib/mdl.js';
 
 const VC_CONTEXT_2 = 'https://www.w3.org/ns/credentials/v2';
 
@@ -14,18 +15,13 @@ const MDOC_TYPE_MDL = `${MDL_NAMESPACE}.mDL`;
 
 export async function createDeviceResponse({
   presentationDefinition,
-  mdoc, sessionTranscript, devicePrivateJwk
+  mdoc, handover, devicePrivateJwk
 } = {}) {
   devicePrivateJwk = {alg: 'ES256', ...devicePrivateJwk};
-  // `sessionTranscript` has:
-  // {mdocGeneratedNonce, clientId, responseUri, verifierGeneratedNonce}
   const deviceResponse = await DeviceResponse.from(mdoc)
+    // FIXME: OID4VP 1.0+ does not use presentation definition
     .usingPresentationDefinition(presentationDefinition)
-    .usingSessionTranscriptForOID4VP(
-      sessionTranscript.mdocGeneratedNonce,
-      sessionTranscript.clientId,
-      sessionTranscript.responseUri,
-      sessionTranscript.verifierGeneratedNonce)
+    .usingSessionTranscriptBytes(await encodeSessionTranscript({handover}))
     .authenticateWithSignature(devicePrivateJwk, 'ES256')
     .sign();
   //console.log('Device response', deviceResponse);
@@ -34,13 +30,10 @@ export async function createDeviceResponse({
 }
 
 export async function createPresentation({
-  presentationDefinition,
-  mdoc, sessionTranscript, devicePrivateJwk
+  presentationDefinition, mdoc, handover, devicePrivateJwk
 } = {}) {
-  // `sessionTranscript` has:
-  // {mdocGeneratedNonce, clientId, responseUri, verifierGeneratedNonce}
   const deviceResponse = await createDeviceResponse({
-    mdoc, presentationDefinition, sessionTranscript, devicePrivateJwk
+    mdoc, presentationDefinition, handover, devicePrivateJwk
   });
 
   // FIXME: define a base64url-encoded mdl vp token mime type?
@@ -96,7 +89,7 @@ export async function issue({
 }
 
 export async function verifyPresentation({
-  deviceResponse, sessionTranscript, trustedCertificates
+  deviceResponse, handover, trustedCertificates
 } = {}) {
   // uncomment to debug:
   /*const parsed = parse(deviceResponse);
@@ -105,7 +98,7 @@ export async function verifyPresentation({
   console.log('issuer certificate', issuerCertificate);*/
 
   // produced on the verifier side
-  const encodedSessionTranscript = _encodeSessionTranscript(sessionTranscript);
+  const encodedSessionTranscript = await encodeSessionTranscript({handover});
 
   const verifier = new Verifier(trustedCertificates);
   // console.log('Getting diagnostic information...');
@@ -136,21 +129,4 @@ export async function verifyPresentation({
     //console.error('Verification failed:', err);
     throw err;
   }
-}
-
-function _encodeSessionTranscript(sessionTranscript) {
-  const {
-    mdocGeneratedNonce,
-    clientId,
-    responseUri,
-    verifierGeneratedNonce
-  } = sessionTranscript;
-  const encoded = DataItem.fromData([
-    // deviceEngagementBytes
-    null,
-    // eReaderKeyBytes
-    null,
-    [mdocGeneratedNonce, clientId, responseUri, verifierGeneratedNonce],
-  ]);
-  return DataItem.fromData(encoded).buffer;
 }
