@@ -19,6 +19,7 @@ export async function createDeviceResponse({
 } = {}) {
   devicePrivateJwk = {alg: 'ES256', ...devicePrivateJwk};
   const deviceResponse = await DeviceResponse.from(mdoc)
+    // FIXME: OID4VP 1.0+ does not use presentation definition
     .usingPresentationDefinition(presentationDefinition)
     .usingSessionTranscriptBytes(await encodeSessionTranscript({handover}))
     .authenticateWithSignature(devicePrivateJwk, 'ES256')
