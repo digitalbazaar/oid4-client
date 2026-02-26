@@ -196,7 +196,7 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
     let parsedDeviceResponse;
     {
       const {
-        responseMode, parsed, protectedHeader
+        responseMode, parsed, protectedHeader, recipientPublicJwkThumbprint
       } = await oid4vp.verifier.parseAuthorizationResponse({
         body: authorizationResponse,
         getDecryptParameters() {
@@ -208,6 +208,7 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
       expect(protectedHeader.alg).to.eql('ECDH-ES');
       expect(protectedHeader.enc).to.eql('A256GCM');
       expect(protectedHeader).to.include.keys(['kid', 'epk', 'apu', 'apv']);
+      expect(recipientPublicJwkThumbprint).to.eql(handover.jwkThumbprint);
       parsedDeviceResponse = base64url.decode(parsed.vpToken);
     }
 
