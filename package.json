@@ -25,6 +25,7 @@
   "dependencies": {
     "@digitalbazaar/http-client": "^4.0.0",
     "base64url-universal": "^2.0.0",
+    "cborg": "^4.5.8",
     "jose": "^6.1.0",
     "json-pointer": "^0.6.2",
     "jsonpath-plus": "^10.3.0",
