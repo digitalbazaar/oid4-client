@@ -18,15 +18,9 @@ export async function createDeviceResponse({
   mdoc, handover, devicePrivateJwk
 } = {}) {
   devicePrivateJwk = {alg: 'ES256', ...devicePrivateJwk};
-  // `sessionTranscript` has:
-  // {mdocGeneratedNonce, clientId, responseUri, verifierGeneratedNonce}
   const deviceResponse = await DeviceResponse.from(mdoc)
     .usingPresentationDefinition(presentationDefinition)
-    .usingSessionTranscriptForOID4VP(
-      handover.mdocGeneratedNonce,
-      handover.clientId,
-      handover.responseUri,
-      handover.verifierGeneratedNonce)
+    .usingSessionTranscriptBytes(await encodeSessionTranscript({handover}))
     .authenticateWithSignature(devicePrivateJwk, 'ES256')
     .sign();
   //console.log('Device response', deviceResponse);
@@ -35,13 +29,10 @@ export async function createDeviceResponse({
 }
 
 export async function createPresentation({
-  presentationDefinition,
-  mdoc, sessionTranscript, devicePrivateJwk
+  presentationDefinition, mdoc, handover, devicePrivateJwk
 } = {}) {
-  // `sessionTranscript` has:
-  // {mdocGeneratedNonce, clientId, responseUri, verifierGeneratedNonce}
   const deviceResponse = await createDeviceResponse({
-    mdoc, presentationDefinition, sessionTranscript, devicePrivateJwk
+    mdoc, presentationDefinition, handover, devicePrivateJwk
   });
 
   // FIXME: define a base64url-encoded mdl vp token mime type?
