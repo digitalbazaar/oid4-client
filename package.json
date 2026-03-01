@@ -24,6 +24,7 @@
   ],
   "dependencies": {
     "@digitalbazaar/http-client": "^4.0.0",
+    "@hpke/core": "^1.7.5",
     "base64url-universal": "^2.0.0",
     "cborg": "^4.5.8",
     "jose": "^6.1.0",
