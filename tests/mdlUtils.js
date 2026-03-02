@@ -6,7 +6,7 @@ import {
   DeviceResponse, Document, MDoc, /*parse,*/ Verifier
 } from '@auth0/mdl';
 import {base64Encode} from '../lib/util.js';
-import {encodeSessionTranscript} from '../lib/mdl.js';
+import {encodeSessionTranscript} from '../lib/oid4vp/mdl.js';
 
 const VC_CONTEXT_2 = 'https://www.w3.org/ns/credentials/v2';
 
