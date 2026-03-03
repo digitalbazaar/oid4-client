@@ -213,7 +213,6 @@ describe('OID4VP ISO 18013-7 Annex C', () => {
       });
       expect(responseMode).to.eql('dc_api');
       expect(recipientPublicJwk).to.eql(handover.recipientPublicJwk);
-      console.log('parsed', parsed);
       parsedDeviceResponse = base64url.decode(parsed.vpToken);
     }
 
