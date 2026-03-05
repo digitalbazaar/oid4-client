@@ -6,12 +6,14 @@ import {
   DeviceResponse, Document, MDoc, /*parse,*/ Verifier
 } from '@auth0/mdl';
 import {base64Encode} from '../lib/util.js';
-import {encodeSessionTranscript} from '../lib/oid4vp/mdl.js';
+import {oid4vp} from '../lib/index.js';
 
 const VC_CONTEXT_2 = 'https://www.w3.org/ns/credentials/v2';
 
 const MDL_NAMESPACE = 'org.iso.18013.5.1';
 const MDOC_TYPE_MDL = `${MDL_NAMESPACE}.mDL`;
+
+const {encodeSessionTranscript} = oid4vp.mdl;
 
 export async function createDeviceResponse({
   presentationDefinition,
@@ -19,11 +21,8 @@ export async function createDeviceResponse({
 } = {}) {
   devicePrivateJwk = {alg: 'ES256', ...devicePrivateJwk};
   const encodedSessionTranscript = await encodeSessionTranscript({handover});
-  const builder = DeviceResponse.from(mdoc);
-  if(presentationDefinition) {
-    builder.usingPresentationDefinition(presentationDefinition);
-  }
-  const deviceResponse = await builder
+  const deviceResponse = await DeviceResponse.from(mdoc)
+    .usingPresentationDefinition(presentationDefinition)
     .usingSessionTranscriptBytes(encodedSessionTranscript)
     .authenticateWithSignature(devicePrivateJwk, 'ES256')
     .sign();
@@ -65,6 +64,21 @@ export async function generateDeviceKeyPair() {
     d: 'V729tbSdAGAL34Gqt2lGFM0Y9qrxILDUVheFduEkgFU'
   };
   return {publicJwk, privateJwk};
+}
+
+export function getPresentationDefinitionFromAuthzRequest({
+  authorizationRequest
+}) {
+  if(authorizationRequest.presentation_definition) {
+    return authorizationRequest.presentation_definition;
+  }
+  const {
+    verifiablePresentationRequest
+  } = oid4vp.convert.toVpr({authorizationRequest});
+  const {presentation_definition} = oid4vp.convert.fromVpr({
+    verifiablePresentationRequest
+  });
+  return presentation_definition;
 }
 
 export async function issue({

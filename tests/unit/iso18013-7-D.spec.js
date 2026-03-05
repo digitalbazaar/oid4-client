@@ -42,32 +42,6 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
       verifierCertificateChainEntities.root.pemCertificate
     ];
 
-    // create example presentation defintion from verifier
-    // FIXME: change to DCQL
-    const presentationDefinition = {
-      id: 'mdl-test-age-over-21',
-      input_descriptors: [
-        {
-          id: 'org.iso.18013.5.1.mDL',
-          format: {
-            mso_mdoc: {
-              alg: ['ES256']
-            }
-          },
-          constraints: {
-            limit_disclosure: 'required',
-            fields: [
-              {
-                // eslint-disable-next-line quotes
-                path: ["$['org.iso.18013.5.1']['age_over_21']"],
-                intent_to_retain: false
-              }
-            ]
-          }
-        }
-      ]
-    };
-
     // create verifier key agreement pair
     const keyAgreementKeyPair = await generateKeyPair('ECDH-ES', {
       crv: 'P-256', extractable: true
@@ -97,7 +71,19 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
           keys: [kakPublicKeyJwk]
         }
       },
-      presentation_definition: presentationDefinition,
+      dcql_query: {
+        credentials: [{
+          id: 'mdl-id',
+          format: 'mso_mdoc',
+          meta: {
+            doctype_value: 'org.iso.18013.5.1.mDL'
+          },
+          claims: [{
+            path: ['org.iso.18013.5.1', 'age_over_21'],
+            intent_to_retain: false
+          }]
+        }]
+      },
       response_mode: 'dc_api.jwt',
       response_type: 'vp_token',
       response_uri: 'https://mdl.reader.example/' +
@@ -161,6 +147,10 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
       handover.jwtThumbprint = await calculateJwkThumbprint(recipientPublicJwk);
     }
 
+    // get presentation definition from authz request, converting as necessary
+    const presentationDefinition = mdlUtils
+      .getPresentationDefinitionFromAuthzRequest({authorizationRequest});
+
     // create MDL "device response" presentation
     const deviceResponse = await mdlUtils.createDeviceResponse({
       presentationDefinition,
@@ -173,19 +163,9 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
     const vpToken = base64url.encode(deviceResponse);
 
     // create authz response
-    const presentationSubmission = {
-      id: `urn:uuid:${crypto.randomUUID()}`,
-      definition_id: presentationDefinition.id,
-      descriptor_map: [{
-        id: 'org.iso.18013.5.1.mDL',
-        format: 'mso_mdoc',
-        path: '$'
-      }]
-    };
     const {authorizationResponse} = await oid4vp.authzResponse.create({
-      presentationSubmission,
       authorizationRequest,
-      vpToken,
+      vpToken, vpTokenFormat: 'mso_mdoc',
       encryptionOptions: {
         mdl: {handover},
         recipientPublicJwk
@@ -261,31 +241,6 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
       verifierCertificateChainEntities.root.pemCertificate
     ];
 
-    // create example presentation defintion from verifier
-    const presentationDefinition = {
-      id: 'mdl-test-age-over-21',
-      input_descriptors: [
-        {
-          id: 'org.iso.18013.5.1.mDL',
-          format: {
-            mso_mdoc: {
-              alg: ['ES256']
-            }
-          },
-          constraints: {
-            limit_disclosure: 'required',
-            fields: [
-              {
-                // eslint-disable-next-line quotes
-                path: ["$['org.iso.18013.5.1']['age_over_21']"],
-                intent_to_retain: false
-              }
-            ]
-          }
-        }
-      ]
-    };
-
     // create verifier key agreement pair
     const keyAgreementKeyPair = await generateKeyPair('ECDH-ES', {
       crv: 'P-256', extractable: true
@@ -315,7 +270,19 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
           keys: [kakPublicKeyJwk]
         }
       },
-      presentation_definition: presentationDefinition,
+      dcql_query: {
+        credentials: [{
+          id: 'mdl-id',
+          format: 'mso_mdoc',
+          meta: {
+            doctype_value: 'org.iso.18013.5.1.mDL'
+          },
+          claims: [{
+            path: ['org.iso.18013.5.1', 'age_over_21'],
+            intent_to_retain: false
+          }]
+        }]
+      },
       response_mode: 'direct_post.jwt',
       response_type: 'vp_token',
       response_uri: 'https://mdl.reader.example/' +
@@ -371,6 +338,10 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
       verifierGeneratedNonce: authorizationRequest.nonce
     };
 
+    // get presentation definition from authz request, converting as necessary
+    const presentationDefinition = mdlUtils
+      .getPresentationDefinitionFromAuthzRequest({authorizationRequest});
+
     // create MDL "device response" presentation
     const deviceResponse = await mdlUtils.createDeviceResponse({
       presentationDefinition,
@@ -383,19 +354,9 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
     const vpToken = base64url.encode(deviceResponse);
 
     // create authz response
-    const presentationSubmission = {
-      id: `urn:uuid:${crypto.randomUUID()}`,
-      definition_id: presentationDefinition.id,
-      descriptor_map: [{
-        id: 'org.iso.18013.5.1.mDL',
-        format: 'mso_mdoc',
-        path: '$'
-      }]
-    };
     const {authorizationResponse} = await oid4vp.authzResponse.create({
-      presentationSubmission,
       authorizationRequest,
-      vpToken,
+      vpToken, vpTokenFormat: 'mso_mdoc',
       encryptionOptions: {
         mdl: {
           handover
