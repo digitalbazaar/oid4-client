@@ -50,8 +50,8 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
       exportJWK(keyAgreementKeyPair.privateKey),
       exportJWK(keyAgreementKeyPair.publicKey)
     ]);
-    kakPublicKeyJwk.use = 'enc';
-    kakPublicKeyJwk.alg = 'ECDH-ES';
+    kakPrivateKeyJwk.use = kakPublicKeyJwk.use = 'enc';
+    kakPrivateKeyJwk.alg = kakPublicKeyJwk.alg = 'ECDH-ES';
     kakPrivateKeyJwk.kid = kakPublicKeyJwk.kid =
       `urn:uuid:${crypto.randomUUID()}`;
 
@@ -144,7 +144,7 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
       nonce: authorizationRequest.nonce
     };
     if(recipientPublicJwk) {
-      handover.jwtThumbprint = await calculateJwkThumbprint(recipientPublicJwk);
+      handover.jwkThumbprint = await calculateJwkThumbprint(recipientPublicJwk);
     }
 
     // get presentation definition from authz request, converting as necessary
@@ -184,6 +184,7 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
           return {keys};
         }
       });
+      // note: no distinction between `dc_api.jwt` and `direct_post.jwt` here
       expect(responseMode).to.eql('direct_post.jwt');
       expect(protectedHeader.alg).to.eql('ECDH-ES');
       expect(protectedHeader.enc).to.eql('A256GCM');
@@ -249,8 +250,8 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
       exportJWK(keyAgreementKeyPair.privateKey),
       exportJWK(keyAgreementKeyPair.publicKey)
     ]);
-    kakPublicKeyJwk.use = 'enc';
-    kakPublicKeyJwk.alg = 'ECDH-ES';
+    kakPrivateKeyJwk.use = kakPublicKeyJwk.use = 'enc';
+    kakPrivateKeyJwk.alg = kakPublicKeyJwk.alg = 'ECDH-ES';
     kakPrivateKeyJwk.kid = kakPublicKeyJwk.kid =
       `urn:uuid:${crypto.randomUUID()}`;
 
@@ -283,7 +284,7 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
           }]
         }]
       },
-      response_mode: 'direct_post.jwt',
+      response_mode: 'dc_api.jwt',
       response_type: 'vp_token',
       response_uri: 'https://mdl.reader.example/' +
         'workflows/1/exchanges/2/openid/clients/default/authorization/response',
@@ -328,15 +329,23 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
     expect(getAuthzRequestResult.authorizationRequest).to.deep.equal(
       authorizationRequest);
 
-    // create an MDL handover for ISO 18013-7 Annex B
+    // select recipient public key for encryption
+    let recipientPublicJwk;
+    if(authorizationRequest.response_mode === 'dc_api.jwt') {
+      recipientPublicJwk = oid4vp.authzResponse.selectRecipientPublicJwk({
+        authorizationRequest
+      });
+    }
+
+    // create an MDL handover for ISO 18013-7 Annex D
     const handover = {
-      type: 'AnnexBHandover',
-      // note: not strictly 128-bits of random; should instead use 128-bits
-      mdocGeneratedNonce: crypto.randomUUID(),
-      clientId: authorizationRequest.client_id,
-      responseUri: authorizationRequest.response_uri,
-      verifierGeneratedNonce: authorizationRequest.nonce
+      type: 'OpenID4VPDCAPIHandover',
+      origin: new URL(authorizationRequest.response_uri).origin,
+      nonce: authorizationRequest.nonce
     };
+    if(recipientPublicJwk) {
+      handover.jwkThumbprint = await calculateJwkThumbprint(recipientPublicJwk);
+    }
 
     // get presentation definition from authz request, converting as necessary
     const presentationDefinition = mdlUtils
@@ -361,6 +370,7 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
         mdl: {
           handover
         },
+        recipientPublicJwk,
         enc: 'A128GCM'
       }
     });
@@ -369,7 +379,7 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
     let parsedDeviceResponse;
     {
       const {
-        responseMode, parsed, protectedHeader
+        responseMode, parsed, protectedHeader, recipientPublicJwkThumbprint
       } = await oid4vp.verifier.parseAuthorizationResponse({
         body: authorizationResponse,
         getDecryptParameters() {
@@ -377,10 +387,13 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
           return {keys};
         }
       });
+      // note: no distinction between `dc_api.jwt` and `direct_post.jwt` here
       expect(responseMode).to.eql('direct_post.jwt');
       expect(protectedHeader.alg).to.eql('ECDH-ES');
       expect(protectedHeader.enc).to.eql('A128GCM');
       expect(protectedHeader).to.include.keys(['kid', 'epk', 'apu', 'apv']);
+      expect(recipientPublicJwkThumbprint).to.eql(handover.jwkThumbprint);
+      parsedDeviceResponse = base64url.decode(parsed.vpToken);
       parsedDeviceResponse = base64url.decode(parsed.vpToken);
     }
 
