@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2022-2025 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2022-2026 Digital Bazaar, Inc. All rights reserved.
  */
 import * as base64url from 'base64url-universal';
 import * as mdlUtils from '../mdlUtils.js';
@@ -142,8 +142,9 @@ describe('OID4VP ISO 18013-7 Annex B', () => {
     expect(getAuthzRequestResult.authorizationRequest).to.deep.equal(
       authorizationRequest);
 
-    // create an MDL session transcript
-    const sessionTranscript = {
+    // create an MDL handover for ISO 18013-7 Annex B
+    const handover = {
+      type: 'AnnexBHandover',
       // note: not strictly 128-bits of random; should instead use 128-bits
       mdocGeneratedNonce: crypto.randomUUID(),
       clientId: authorizationRequest.client_id,
@@ -155,7 +156,7 @@ describe('OID4VP ISO 18013-7 Annex B', () => {
     const deviceResponse = await mdlUtils.createDeviceResponse({
       presentationDefinition,
       mdoc,
-      sessionTranscript,
+      handover,
       devicePrivateJwk: deviceKeyPair.privateJwk
     });
 
@@ -178,7 +179,7 @@ describe('OID4VP ISO 18013-7 Annex B', () => {
       vpToken,
       encryptionOptions: {
         mdl: {
-          sessionTranscript
+          handover
         }
       }
     });
@@ -210,7 +211,7 @@ describe('OID4VP ISO 18013-7 Annex B', () => {
     if(isNode) {
       const result = await mdlUtils.verifyPresentation({
         deviceResponse: parsedDeviceResponse,
-        sessionTranscript,
+        handover,
         trustedCertificates: [
           issuerCertChainEntities.intermediate.pemCertificate
         ]
@@ -351,8 +352,9 @@ describe('OID4VP ISO 18013-7 Annex B', () => {
     expect(getAuthzRequestResult.authorizationRequest).to.deep.equal(
       authorizationRequest);
 
-    // create an MDL session transcript
-    const sessionTranscript = {
+    // create an MDL handover for ISO 18013-7 Annex B
+    const handover = {
+      type: 'AnnexBHandover',
       // note: not strictly 128-bits of random; should instead use 128-bits
       mdocGeneratedNonce: crypto.randomUUID(),
       clientId: authorizationRequest.client_id,
@@ -364,7 +366,7 @@ describe('OID4VP ISO 18013-7 Annex B', () => {
     const deviceResponse = await mdlUtils.createDeviceResponse({
       presentationDefinition,
       mdoc,
-      sessionTranscript,
+      handover,
       devicePrivateJwk: deviceKeyPair.privateJwk
     });
 
@@ -387,7 +389,7 @@ describe('OID4VP ISO 18013-7 Annex B', () => {
       vpToken,
       encryptionOptions: {
         mdl: {
-          sessionTranscript
+          handover
         },
         enc: 'A128GCM'
       }
@@ -420,7 +422,7 @@ describe('OID4VP ISO 18013-7 Annex B', () => {
     if(isNode) {
       const result = await mdlUtils.verifyPresentation({
         deviceResponse: parsedDeviceResponse,
-        sessionTranscript,
+        handover,
         trustedCertificates: [
           issuerCertChainEntities.intermediate.pemCertificate
         ]
