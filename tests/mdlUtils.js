@@ -19,6 +19,12 @@ export async function createDeviceResponse({
   presentationDefinition,
   mdoc, handover, devicePrivateJwk
 } = {}) {
+  // pick input_descriptor w/ID: `MDOC_TYPE_MDL` as needed by auth0 lib
+  presentationDefinition = {
+    ...presentationDefinition,
+    input_descriptors: presentationDefinition.input_descriptors.filter(
+      e => e.id === MDOC_TYPE_MDL)
+  };
   devicePrivateJwk = {alg: 'ES256', ...devicePrivateJwk};
   const encodedSessionTranscript = await encodeSessionTranscript({handover});
   const deviceResponse = await DeviceResponse.from(mdoc)
