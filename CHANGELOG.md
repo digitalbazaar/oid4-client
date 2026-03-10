@@ -12,6 +12,8 @@
 - Allow `authorizationRequest` to be passed to
   `oid4vp.authzResponse.parseAuthorizationResponse()` to allow for more
   accurate `responseMode` detection and validation.
+- Support creating ISO 18013-7 DC API (Annex C and D) responses.
+- Support parsing ISO 18013-7 DC API (Annex C and D) responses.
 
 ## 5.7.2 - 2026-02-10
 
