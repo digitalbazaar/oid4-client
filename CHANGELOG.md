@@ -6,8 +6,12 @@
 - Add `oid4vp.mdl.encodeSessionTranscript()` API. This API can be called with
   `handover` options to return an mDL SessionTranscript variant for
   implementing ISO-18013-7 (various annexes).
-- Include `recipientPublicJwk` and `recipientPublicJwkThumbprint` in
-  return value from `oid4vp.authzResponse.parseAuthorizationResponse()`.
+- Include `recipientPublicJwk`, `recipientPublicJwkThumbprint`, and
+  `vpTokenMediaType` (when detectable) in return value from
+  `oid4vp.authzResponse.parseAuthorizationResponse()`.
+- Allow `authorizationRequest` to be passed to
+  `oid4vp.authzResponse.parseAuthorizationResponse()` to allow for more
+  accurate `responseMode` detection and validation.
 
 ## 5.7.2 - 2026-02-10
 

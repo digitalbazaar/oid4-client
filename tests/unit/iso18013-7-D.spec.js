@@ -165,7 +165,7 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
     // create authz response
     const {authorizationResponse} = await oid4vp.authzResponse.create({
       authorizationRequest,
-      vpToken, vpTokenFormat: 'mso_mdoc',
+      vpToken, vpTokenMediaType: 'application/mdl-vp-token',
       encryptionOptions: {
         mdl: {handover},
         recipientPublicJwk
@@ -365,7 +365,7 @@ describe('OID4VP ISO 18013-7 Annex D', () => {
     // create authz response
     const {authorizationResponse} = await oid4vp.authzResponse.create({
       authorizationRequest,
-      vpToken, vpTokenFormat: 'mso_mdoc',
+      vpToken, vpTokenMediaType: 'application/mdl-vp-token',
       encryptionOptions: {
         mdl: {
           handover

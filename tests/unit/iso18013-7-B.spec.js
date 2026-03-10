@@ -178,9 +178,7 @@ describe('OID4VP ISO 18013-7 Annex B', () => {
       authorizationRequest,
       vpToken,
       encryptionOptions: {
-        mdl: {
-          handover
-        }
+        mdl: {handover}
       }
     });
 
@@ -221,7 +219,7 @@ describe('OID4VP ISO 18013-7 Annex B', () => {
     }
   });
 
-  // to be updated / moved to OID4VP "Annex D" / "HAIP" for JavaCards w/A128GCM
+  // JavaCards w/A128GCM
   it('should pass w/enc=A128GCM', async () => {
     // get device key pair
     const deviceKeyPair = await mdlUtils.generateDeviceKeyPair();
@@ -388,9 +386,7 @@ describe('OID4VP ISO 18013-7 Annex B', () => {
       authorizationRequest,
       vpToken,
       encryptionOptions: {
-        mdl: {
-          handover
-        },
+        mdl: {handover},
         enc: 'A128GCM'
       }
     });
