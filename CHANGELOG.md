@@ -1,5 +1,17 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.9.0 - 2026-03-dd
+
+### Added
+- Add `getPostBody()` option to `oid4vp.authzRequest.get()` that can be passed
+  in support of the optional `request_uri_method=post` OID4VP 1.0+ parameter.
+  The function must return an object (or a Promise that resolves to such an
+  object) with `body` set to the POST body that will be sent to the server when
+  requesting the authorization request, provided that the server announces it
+  uses the POST method for providing the authorization request. The `body`
+  value is expected to be a `URLSearchParams` instance that expresses the
+  desired parameters defined in OID4VP 1.0 section 5.10.
+
 ## 5.8.0 - 2026-03-11
 
 ### Added
