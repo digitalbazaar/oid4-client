@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.8.0 - 2026-02-dd
+## 5.8.0 - 2026-03-11
 
 ### Added
 - Add `oid4vp.mdl.encodeSessionTranscript()` API. This API can be called with
