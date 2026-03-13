@@ -11,6 +11,7 @@
   uses the POST method for providing the authorization request. The `body`
   value is expected to be a `URLSearchParams` instance that expresses the
   desired parameters defined in OID4VP 1.0 section 5.10.
+- Use `request_uri_method=post` if parsed from authz request URL.
 
 ## 5.8.0 - 2026-03-11
 
