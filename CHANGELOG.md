@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.9.0 - 2026-03-dd
+## 5.9.0 - 2026-03-14
 
 ### Added
 - Add `getPostBody()` option to `oid4vp.authzRequest.get()` that can be passed
