@@ -12,6 +12,8 @@
   value is expected to be a `URLSearchParams` instance that expresses the
   desired parameters defined in OID4VP 1.0 section 5.10.
 - Use `request_uri_method=post` if parsed from authz request URL.
+- Map `expected_origins[0]` to `domain` when converting an authz request that
+  uses a DC API response mode and includes no `response_uri`.
 
 ## 5.8.0 - 2026-03-11
 
