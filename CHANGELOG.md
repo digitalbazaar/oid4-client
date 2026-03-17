@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.9.1 - 2026-03-dd
+## 5.9.1 - 2026-03-17
 
 ### Fixed
 - Improve `client_id` VPR conversion when using `redirect_uri` as a prefix.
