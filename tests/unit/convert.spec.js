@@ -43,7 +43,7 @@ describe('convert', () => {
           acceptedMethods: [{method: 'key'}],
           acceptedCryptosuites: [{cryptosuite: 'ecdsa-rdfc-2019'}]
         }],
-        domain: 'https://domain.example',
+        domain: 'redirect_uri:https://domain.example',
         challenge: '1234-challenge'
       };
 
@@ -74,7 +74,8 @@ describe('convert', () => {
       expect(response_mode).to.equal('direct_post');
       expect(client_id).to.equal(verifiablePresentationRequest.domain);
       expect(client_id_scheme).to.equal('redirect_uri');
-      expect(response_uri).to.equal(verifiablePresentationRequest.domain);
+      expect(response_uri).to.equal(
+        verifiablePresentationRequest.domain.slice('redirect_uri:'.length));
       expect(nonce).to.equal(verifiablePresentationRequest.challenge);
 
       // OID4VP 1.0+
@@ -212,7 +213,7 @@ describe('convert', () => {
           acceptedMethods: [{method: 'key'}],
           acceptedEnvelopes: ['application/jwt']
         }],
-        domain: 'https://domain.example',
+        domain: 'redirect_uri:https://domain.example',
         challenge: '1234-challenge'
       };
 
@@ -243,7 +244,8 @@ describe('convert', () => {
       expect(response_mode).to.equal('direct_post');
       expect(client_id).to.equal(verifiablePresentationRequest.domain);
       expect(client_id_scheme).to.equal('redirect_uri');
-      expect(response_uri).to.equal(verifiablePresentationRequest.domain);
+      expect(response_uri).to.equal(
+        verifiablePresentationRequest.domain.slice('redirect_uri:'.length));
       expect(nonce).to.equal(verifiablePresentationRequest.challenge);
 
       // OID4VP 1.0+
@@ -386,7 +388,7 @@ describe('convert', () => {
           acceptedMethods: [{method: 'key'}],
           acceptedCryptosuites: [{cryptosuite: 'ecdsa-rdfc-2019'}]
         }],
-        domain: 'https://domain.example',
+        domain: 'redirect_uri:https://domain.example',
         challenge: '1234-challenge'
       };
 
@@ -397,7 +399,7 @@ describe('convert', () => {
       expect(authorizationRequest).to.exist;
       expect(authorizationRequest).to.have.keys([
         'response_type', 'response_mode',
-        'client_id',
+        'client_id', 'client_id_scheme',
         'response_uri', 'nonce', 'client_metadata',
         'dcql_query', 'presentation_definition'
       ]);
@@ -415,9 +417,9 @@ describe('convert', () => {
 
       expect(response_type).to.equal('vp_token');
       expect(response_mode).to.equal('direct_post');
-      expect(client_id).to.equal(
-        `redirect_uri:${verifiablePresentationRequest.domain}`);
-      expect(response_uri).to.equal(verifiablePresentationRequest.domain);
+      expect(client_id).to.equal(verifiablePresentationRequest.domain);
+      expect(response_uri).to.equal(
+        verifiablePresentationRequest.domain.slice('redirect_uri:'.length));
       expect(nonce).to.equal(verifiablePresentationRequest.challenge);
       expect(client_metadata).to.exist;
 
@@ -639,7 +641,7 @@ describe('convert', () => {
           group: groupId,
           acceptedCryptosuites: [{cryptosuite: 'ecdsa-rdfc-2019'}]
         }],
-        domain: 'https://domain.example',
+        domain: 'redirect_uri:https://domain.example',
         challenge: '1234-challenge'
       };
 
@@ -759,7 +761,7 @@ describe('convert', () => {
           acceptedCryptosuites: [{cryptosuite: 'ecdsa-rdfc-2019'}],
           acceptedEnvelopes: ['application/jwt']
         }],
-        domain: 'https://domain.example',
+        domain: 'redirect_uri:https://domain.example',
         challenge: '1234-challenge'
       };
 
@@ -951,7 +953,7 @@ describe('convert', () => {
           acceptedCryptosuites: [{cryptosuite: 'ecdsa-rdfc-2019'}],
           acceptedEnvelopes: ['application/jwt']
         }],
-        domain: 'https://domain.example',
+        domain: 'redirect_uri:https://domain.example',
         challenge: '1234-challenge'
       };
 
@@ -1109,7 +1111,7 @@ describe('convert', () => {
           type: 'DIDAuthentication',
           acceptedCryptosuites: [{cryptosuite: 'ecdsa-rdfc-2019'}]
         }],
-        domain: 'https://domain.example',
+        domain: 'redirect_uri:https://domain.example',
         challenge: '1234-challenge'
       };
 
