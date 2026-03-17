@@ -1,5 +1,14 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.9.1 - 2026-03-dd
+
+### Fixed
+- Improve `client_id` VPR conversion when using `redirect_uri` as a prefix.
+  The client ID should be used as the `domain` in a VPR and it should include
+  its prefix if present. When converting `domain` value from a VPR that
+  includes a prefix, it should be stripped to populate the default value for
+  `response_uri` when that same prefix is used.
+
 ## 5.9.0 - 2026-03-14
 
 ### Added
