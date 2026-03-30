@@ -1,5 +1,15 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.10.0 - 2026-03-dd
+
+### Added
+- If OID4VCI server supports `authorization_details`, include it in the
+  access token request.
+
+### Changed
+- Build OID4VCI 1.0 compliant credential requests and improve general offer
+  processing and matching against credential configurations.
+
 ## 5.9.1 - 2026-03-17
 
 ### Fixed
