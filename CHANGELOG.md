@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.10.0 - 2026-03-dd
+## 5.10.0 - 2026-03-30
 
 ### Added
 - If OID4VCI server supports `authorization_details`, include it in the
