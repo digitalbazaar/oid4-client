@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.11.0 - 2026-mm-dd
+## 5.11.0 - 2026-05-01
 
 ### Added
 - Support parsing `vp_token` values that are DCQL credential response
