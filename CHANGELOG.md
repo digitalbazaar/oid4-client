@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.12.1 - 2026-05-dd
+## 5.12.1 - 2026-05-06
 
 ### Fixed
 - Do not send `proof_type` in an OID4VCI 1.0 formatted request.
