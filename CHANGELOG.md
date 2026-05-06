@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.13.0 - 2026-05-dd
+## 5.13.0 - 2026-05-06
 
 ### Added
 - Allow `getDidOptions()` to be passed to `requestCredentials()` instead of
