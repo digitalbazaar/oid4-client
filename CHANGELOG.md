@@ -1,5 +1,16 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.13.0 - 2026-05-dd
+
+### Added
+- Allow `getDidOptions()` to be passed to `requestCredentials()` instead of
+  `did` and `didProofSigner`. The function `getDidOptions()` must return
+  an object with `did` and `didProofSigner` keys (and values) -- or a Promise
+  that resolves to such an object. The function will be passed the
+  `issuerConfig` and the `credentialConfiguration` for the particular
+  request that needs DID options so a DID proof can be generated. Passing
+  `did` and `didProofSigner` directly is now considered deprecated.
+
 ## 5.12.1 - 2026-05-06
 
 ### Fixed
