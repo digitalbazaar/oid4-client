@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.12.0 - 2026-mm-dd
+## 5.12.0 - 2026-05-06
 
 ### Added
 - Add support for `di_vp` DID proof type during OID4VCI.
