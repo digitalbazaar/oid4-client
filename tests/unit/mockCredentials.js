@@ -269,5 +269,27 @@ export const edgeCaseCredentials = [
         }]
       ]
     }
+  },
+
+  // Credential with numeric-like strings (integer-coercion regression)
+  {
+    '@context': [
+      'https://www.w3.org/ns/credentials/v2',
+      'https://www.w3.org/ns/credentials/examples/v2'
+    ],
+    type: ['VerifiableCredential', 'ScoreCredential'],
+    credentialSubject: {
+      id: 'did:example:integer-coercion',
+      name: 'Integer Coercion Person',
+      // decimal string: must NOT be truncated to an integer
+      score: '3.14',
+      // partially-numeric string: trailing chars must NOT be ignored
+      value: '21abc',
+      // valid integer string: must STILL coerce
+      count: '21'
+    },
+    issuer: {
+      id: 'did:example:issuer'
+    }
   }
 ];

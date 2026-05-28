@@ -618,6 +618,107 @@ describe('query.match', () => {
         // should match the credential with yearOfBirth: 1998 (number)
         expect(matches).to.have.length(1);
       });
+
+      it('should NOT coerce a decimal string to an integer', function() {
+        const queryByExample = {
+          example: {
+            credentialSubject: {
+              // integer query must not match the string '3.14'
+              score: 3
+            }
+          }
+        };
+
+        const matches = _matchCredentials({
+          credentials: edgeCaseCredentials,
+          queryByExample
+        });
+
+        // '3.14' must not be truncated to 3
+        expect(matches).to.have.length(0);
+      });
+
+      it('should NOT coerce a partially-numeric string to an integer',
+        function() {
+          const queryByExample = {
+            example: {
+              credentialSubject: {
+                // integer query must not match the string '21abc'
+                value: 21
+              }
+            }
+          };
+
+          const matches = _matchCredentials({
+            credentials: edgeCaseCredentials,
+            queryByExample
+          });
+
+          // '21abc' must not have its trailing characters ignored
+          expect(matches).to.have.length(0);
+        });
+
+      it('should still coerce a valid integer', function() {
+        const queryByExample = {
+          example: {
+            credentialSubject: {
+              // integer query must still match the string '21'
+              count: 21
+            }
+          }
+        };
+
+        const matches = _matchCredentials({
+          credentials: edgeCaseCredentials,
+          queryByExample
+        });
+
+        // valid integer strings continue to coerce
+        expect(matches).to.have.length(1);
+        expect(matches[0].credentialSubject.name)
+          .to.equal('Integer Coercion Person');
+      });
+
+      // NOTE: decimal strings are deliberately left uncoerced ("integer only"
+      // coercion); this test documents and locks in that behavior so a future
+      // switch to numeric coercion (e.g., `Number()`) is caught.
+      it('should NOT coerce decimals, only match decimal strings exactly',
+        function() {
+          // a decimal written as a NUMBER must not match the string '3.14'
+          const numberQuery = {
+            example: {
+              credentialSubject: {
+                score: 3.14
+              }
+            }
+          };
+
+          const numberMatches = _matchCredentials({
+            credentials: edgeCaseCredentials,
+            queryByExample: numberQuery
+          });
+
+          // '3.14' (string) is not coerced, so it does not equal 3.14 (number)
+          expect(numberMatches).to.have.length(0);
+
+          // a decimal written as a STRING matches the identical string directly
+          const stringQuery = {
+            example: {
+              credentialSubject: {
+                score: '3.14'
+              }
+            }
+          };
+
+          const stringMatches = _matchCredentials({
+            credentials: edgeCaseCredentials,
+            queryByExample: stringQuery
+          });
+
+          expect(stringMatches).to.have.length(1);
+          expect(stringMatches[0].credentialSubject.name)
+            .to.equal('Integer Coercion Person');
+        });
     });
 
     describe('Real-world Scenarios', function() {
