@@ -4,6 +4,10 @@
 
 ### Fixed
 - Ensure `validate()` is awaited when getting an authz request.
+- Improve `client_id` backwards compatibility matching; allow an embedded
+  request that provides an unprefixed `client_id` to be matched against a
+  retrieved authz request's prefixed `client_id` if the authz request
+  announces a `client_id_scheme` such that the unprefixed values would match.
 
 ## 5.13.0 - 2026-05-06
 
