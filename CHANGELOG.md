@@ -1,5 +1,10 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.13.1 - 2026-06-dd
+
+### Fixed
+- Ensure `validate()` is awaited when getting an authz request.
+
 ## 5.13.0 - 2026-05-06
 
 ### Added
