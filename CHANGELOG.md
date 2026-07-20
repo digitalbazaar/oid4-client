@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.13.2 - 2026-mm-dd
+## 5.13.2 - 2026-07-19
 
 ### Fixed
 - Fix `@context` matching in `credentialMatches()`. Now non-flat JSON pointer
