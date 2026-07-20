@@ -1,5 +1,12 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.13.2 - 2026-mm-dd
+
+### Fixed
+- Fix `@context` matching in `credentialMatches()`. Now non-flat JSON pointer
+  maps properly preserve `@context` inputs as ordered lists (using arrays)
+  instead of expressing them as sets.
+
 ## 5.13.1 - 2026-06-09
 
 ### Fixed
