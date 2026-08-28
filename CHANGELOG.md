@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.14.0 - 2026-mm-dd
+## 5.14.0 - 2026-08-28
 
 ### Added
 - Add support for `application/mdoc` as the media type for mso mdoc enveloped
