@@ -1,5 +1,16 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.14.0 - 2026-mm-dd
+
+### Added
+- Add support for `application/mdoc` as the media type for mso mdoc enveloped
+  credentials, including when reading/converting `acceptedEnvelopes` which
+  will also include `meta: {docType}` when using this new media type. This is
+  now preferred over `application/mdl`. Notably, `application/mdoc-vp-token`
+  is now also accepted for mdoc device responses expressed as base64url-
+  encoded `vp_token` values, but this media type is presently not output from
+  the parser to avoid a breaking change.
+
 ## 5.13.2 - 2026-07-19
 
 ### Fixed
