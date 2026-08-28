@@ -160,7 +160,11 @@ describe('OID4VP ISO 18013-7 Annex C', () => {
     // create authz response
     const {authorizationResponse} = await oid4vp.authzResponse.create({
       authorizationRequest,
-      vpToken, vpTokenMediaType: 'application/mdl-vp-token',
+      vpToken,
+      // intentionally use deprecated 'application/mdl-vp-token'; modern
+      // 'application/mdoc-vp-token' is used in Annex D test to provide
+      // coverage for both
+      vpTokenMediaType: 'application/mdl-vp-token',
       encryptionOptions: {
         mdl: {handover},
         recipientPublicJwk

@@ -1,7 +1,6 @@
 /*
- * Copyright (c) 2025-2026 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2025-2026 Digital Bazaar, Inc.
  */
-import * as base64url from 'base64url-universal';
 import {
   DeviceResponse, Document, MDoc, /*parse,*/ Verifier
 } from '@auth0/mdl';
@@ -44,15 +43,13 @@ export async function createPresentation({
     mdoc, presentationDefinition, handover, devicePrivateJwk
   });
 
-  // FIXME: define a base64url-encoded mdl vp token mime type?
   const encodedDeviceResponse = deviceResponse.encode();
-  const vpToken = base64url.encode(encodedDeviceResponse);
+  const b64 = Buffer.from(encodedDeviceResponse).toString('base64');
   // console.log('device side: device response cbor', encodedDeviceResponse);
-  // console.log(vpToken, 'vpToken');
 
   return {
     '@context': [VC_CONTEXT_2],
-    id: `data:application/mdl-vp-token,${vpToken}`,
+    id: `data:application/mdoc,${b64}`,
     type: 'EnvelopedVerifiablePresentation'
   };
 }
@@ -144,7 +141,7 @@ export async function verifyPresentation({
       '@context': [VC_CONTEXT_2],
       type: 'VerifiablePresentation',
       verifiableCredential: [{
-        id: `data:application/mdl;base64,${b64Mdl}`,
+        id: `data:application/mdoc;base64,${b64Mdl}`,
         type: 'EnvelopedVerifiableCredential'
       }]
     };
