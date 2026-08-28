@@ -10,6 +10,8 @@
   is now also accepted for mdoc device responses expressed as base64url-
   encoded `vp_token` values, but this media type is presently not output from
   the parser to avoid a breaking change.
+- Expose `mdoc` export for mdoc-related functions. This exposes the same API
+  as `mdl` does (but this pathway is now deprecated).
 
 ## 5.13.2 - 2026-07-19
 
