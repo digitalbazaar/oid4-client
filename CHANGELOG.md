@@ -1,5 +1,19 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.15.0 - 2026-mm-dd
+
+### Added
+- Return additional detected `envelope`, `presentation`, and `mdocOptions`
+  when parsing an authorization response; `mdocOptions` will be `undefined`
+  if an mdoc response was not detected, otherwise it will include an
+  `expectedHandover` and an `expectedSessionTranscript` (the latter will be
+  cbor-encoded and base64url-encoded).
+- Pass `mdocOptions` to `getDecryptParameters()` during authorization response
+  parsing. Note that within `getDecryptParameters()`, `mdocOptions` will
+  be incomplete, including only those values that are available prior to
+  decryption, e.g., `expectedSessionTranscript` and some components of
+  `expectedHandover` will be `undefined`.
+
 ## 5.14.0 - 2026-08-28
 
 ### Added
