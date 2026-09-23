@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.15.0 - 2026-mm-dd
+## 5.15.0 - 2026-09-23
 
 ### Added
 - Return additional detected `envelope`, `presentation`, and `mdocOptions`
