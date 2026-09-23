@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2022-2026 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2022-2026 Digital Bazaar, Inc.
  */
 import * as base64url from 'base64url-universal';
 import * as mdlUtils from '../mdlUtils.js';
