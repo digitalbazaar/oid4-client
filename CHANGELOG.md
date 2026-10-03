@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.15.1 - 2026-mm-dd
+## 5.15.1 - 2026-10-03
 
 ### Fixed
 - Use object instead of array for `EncryptionParameters` for Annex C handover.
