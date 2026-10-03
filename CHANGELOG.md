@@ -1,5 +1,11 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.15.1 - 2026-mm-dd
+
+### Fixed
+- Use object instead of array for `EncryptionParameters` for Annex C handover.
+- Use Map instead of object for COSE_Key.
+
 ## 5.15.0 - 2026-09-23
 
 ### Added
