@@ -1,5 +1,10 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.15.2 - 2026-10-dd
+
+### Fixed
+- Fix `coseKeyToJwk` internal helper.
+
 ## 5.15.1 - 2026-10-03
 
 ### Fixed
