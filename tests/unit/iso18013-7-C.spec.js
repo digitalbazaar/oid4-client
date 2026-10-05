@@ -183,13 +183,17 @@ describe('OID4VP ISO 18013-7 Annex C', () => {
           return {
             keys,
             getInfo({recipientPublicJwk}) {
+              // set encoded `SessionTranscript` as `info`
+              // note: this must be the raw value w/o CBOR tag 24, i.e., this
+              // is NOT `SessionTranscriptBytes`
               return oid4vp.mdl.encodeSessionTranscript({
                 handover: {
                   type: 'dcapi',
                   origin: new URL(authorizationRequest.response_uri).origin,
                   nonce: authorizationRequest.nonce,
                   recipientPublicJwk
-                }
+                },
+                raw: true
               });
             }
           };

@@ -3,6 +3,8 @@
 ## 5.15.2 - 2026-10-dd
 
 ### Fixed
+- Fix Annex C hpke `info`; use raw CBOR-encoded `SessionTranscript`; do not
+  use `SessionTranscriptBytes`, i.e., exclude the CBOR tag 24 wrapper.
 - Fix `coseKeyToJwk` internal helper.
 
 ## 5.15.1 - 2026-10-03
