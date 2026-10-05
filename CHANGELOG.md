@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.15.2 - 2026-10-dd
+## 5.15.2 - 2026-10-05
 
 ### Fixed
 - Fix Annex C hpke `info`; use raw CBOR-encoded `SessionTranscript`; do not
