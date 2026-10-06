@@ -5,6 +5,7 @@ import * as base64url from 'base64url-universal';
 import * as mdlUtils from '../mdlUtils.js';
 import {exportJWK, generateKeyPair} from 'jose';
 import {oid4vp, signJWT} from '../../lib/index.js';
+import {encode as cborEncode} from 'cborg';
 import chai from 'chai';
 import {generateCertificateChain} from '../certUtils.js';
 
@@ -220,5 +221,37 @@ describe('OID4VP ISO 18013-7 Annex C', () => {
 
       expect(result).to.be.an('object');
     }
+  });
+  it('should hash `EncryptionInfo` with integer COSE key labels', async () => {
+    // verifier's encryption key
+    const {publicKey} = await generateKeyPair('ECDH-ES', {crv: 'P-256'});
+    const recipientPublicJwk = await exportJWK(publicKey);
+    const nonce = 'abc123';
+    const origin = 'https://example.com';
+
+    // `EncryptionInfo` as a verifier sends it, with integer COSE key labels
+    // (RFC 9052): `{1: 2, -1: 1, -2: x, -3: y}`
+    const recipientPublicKey = new Map([
+      [1, 2],
+      [-1, 1],
+      [-2, base64url.decode(recipientPublicJwk.x)],
+      [-3, base64url.decode(recipientPublicJwk.y)]
+    ]);
+    const encryptionInfo = base64url.encode(cborEncode([
+      'dcapi', {nonce: new TextEncoder().encode(nonce), recipientPublicKey}
+    ]));
+
+    // `SessionTranscript` a wallet computes over the `EncryptionInfo` it
+    // received: `[null, null, ['dcapi', sha256([EncryptionInfo, origin])]]`
+    const dcapiInfoHash = new Uint8Array(await crypto.subtle.digest(
+      'SHA-256', cborEncode([encryptionInfo, origin])));
+    const expected = cborEncode([null, null, ['dcapi', dcapiInfoHash]]);
+
+    // `SessionTranscript` rebuilt from the JWK must match
+    const actual = await oid4vp.mdoc.encodeSessionTranscript({
+      handover: {type: 'dcapi', origin, nonce, recipientPublicJwk},
+      raw: true
+    });
+    expect(actual).to.eql(expected);
   });
 });
