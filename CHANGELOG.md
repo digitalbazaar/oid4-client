@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.15.3 - 2026-10-dd
+## 5.15.3 - 2026-10-06
 
 ### Fixed
 - Use integer COSE key labels in `jwkToCoseKey()`.
