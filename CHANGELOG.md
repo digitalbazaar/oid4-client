@@ -1,5 +1,11 @@
 # @digitalbazaar/oid4-client Changelog
 
+## 5.15.3 - 2026-10-dd
+
+### Fixed
+- Use integer COSE key labels in `jwkToCoseKey()`.
+- Fix P-384 detection in `coseKeyToJwk()`.
+
 ## 5.15.2 - 2026-10-05
 
 ### Fixed
