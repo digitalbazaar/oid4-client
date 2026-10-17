@@ -1,6 +1,6 @@
 # @digitalbazaar/oid4-client Changelog
 
-## 5.16.0 - 2026-mm-dd
+## 5.16.0 - 2026-10-16
 
 ### Added
 - Export `createAuthorizationResponse()` for use w/o directly sending an
